@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>模擬社群媒體</title>
+    <!-- 這是您提供的樣式表 -->
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <!-- Google Fonts 應已包含在 styles.css 中 -->
+
+    <!-- 
+      補充樣式：
+      以下樣式是針對此模擬頁面特定元素，可能未被 styles.css 完全覆蓋，
+      或需要針對此佈局進行微調。
+      理想情況下，這些應整合到您的主 styles.css 或一個單獨的補充 CSS 檔案中。
+    -->
+    <style>
+      /* 使模擬頁面的主標頭固定在頂部 */
+      .sim-main-header {
+        position: sticky;
+        top: 0;
+        z-index: 101; /* 比 simulation-banner 的 z-index 高 */
+      }
+
+      /* simulation-banner 在 styles.css 中是 sticky top: 56px; */
+      /* 如果 sim-main-header 也是 sticky top:0, 它們的位置需要協調 */
+
+      .sim-feed-container {
+        /* 用於包裹貼文流並控制整體佈局 */
+        padding: 20px;
+        text-align: center; /* 用於按鈕和篩選狀態文字的居中 */
+      }
+
+      .sim-feed {
+        /* 包裹所有貼文的容器 */
+        max-width: 600px;
+        margin: 20px auto;
+      }
+
+      /* 修正貼文間距和邊框 */
+      .feed-item {
+        margin-bottom: 20px; /* 增加貼文之間的間距 */
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden; /* 確保圓角不被內容突破 */
+        background-color: var(--card-bg-color, #fff);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      /* 貼文內部元素的特定樣式 */
+      .post-header {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .post-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        margin-right: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--button-text-color);
+        font-weight: bold;
+        font-size: 1.1em;
+      }
+
+      .post-user {
+        flex-grow: 1;
+        text-align: left; /* 確保用戶名和時間靠左 */
+      }
+
+      .post-username {
+        font-weight: 600; /* styles.css 的 .btn 字重是600 */
+        margin: 0;
+        color: var(--text-color);
+      }
+
+      .post-time {
+        font-size: 0.8em;
+        color: #888;
+        margin: 0;
+      }
+
+      .post-options i {
+        /* 貼文右上角的省略號 */
+        color: #888;
+        cursor: pointer;
+      }
+
+      .post-text {
+        /* 貼文文字內容 */
+        margin-bottom: 15px;
+        text-align: left;
+        line-height: 1.6; /* 略微調整行高以適應貼文 */
+        white-space: pre-wrap; /* 保留換行符 */
+        color: var(--text-color);
+      }
+
+      /* 貼文圖片的佔位文字樣式 (如果背景圖未載入) */
+      .feed-item-img.placeholder-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #888;
+        font-style: italic;
+        background-color: #f5f5f5;
+      }
+
+      .post-tags {
+        /* 標籤容器 */
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-align: left;
+      }
+
+      .post-tags .tag {
+        /* 行內標籤樣式 */
+        display: inline-block;
+        padding: 4px 12px; /* 調整內邊距 */
+        border-radius: 16px;
+        font-size: 0.8em;
+        margin-right: 6px;
+        margin-bottom: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        background-color: var(--muted-accent-color); /* 預設標籤背景色 */
+        color: var(--text-color);
+        font-weight: 500;
+      }
+      .post-tags .tag:hover {
+        filter: brightness(95%);
+      }
+      /* styles.css 中的 .tag-beneficial, .tag-harmful, .tag-neutral 可用於特定標籤 */
+      /* 例如: <span class="tag tag-beneficial">#有益標籤</span> */
+      .post-tags .tag.tag-beneficial {
+        background-color: var(--success-bg);
+        color: var(--success-color);
+      }
+      .post-tags .tag.tag-harmful {
+        background-color: var(--harmful-bg);
+        color: var(--harmful-color);
+      }
+      .post-tags .tag.tag-neutral {
+        background-color: #f0f0f0;
+        color: #555;
+      }
+
+      .post-actions {
+        /* 喜歡、評論、分享按鈕容器 */
+        display: flex;
+        justify-content: space-around;
+        padding: 12px 0;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .post-action {
+        color: #555;
+        display: flex;
+        align-items: center;
+        font-size: 0.9em;
+        cursor: pointer;
+        padding: 8px 12px;
+        border-radius: 8px; /* 與 .btn 圓角一致 */
+        transition: background-color 0.2s ease;
+      }
+      .post-action:hover {
+        background-color: #f0f0f0;
+      }
+      .post-action i {
+        margin-right: 8px;
+      }
+      .post-action .fas.fa-heart {
+        /* 已按讚的心形圖示顏色 */
+        color: var(--harmful-color); /* 使用危險色作為按讚顏色，或自訂 */
+      }
+
+      .loading-indicator {
+        /* 載入更多指示器 */
+        text-align: center;
+        padding: 20px;
+        color: #777; /* 來自 styles.css .feed-end-message */
+      }
+      .loading-indicator .fa-spin {
+        font-size: 1.5em;
+        margin-bottom: 8px;
+      } /* 修正貼文圖片顯示問題 */
+      .feed-item-img {
+        width: 100%;
+        height: 300px; /* 增加高度確保圖片完整顯示 */
+        background-size: cover; /* 確保圖片填滿容器 */
+        background-position: center; /* 確保圖片居中顯示 */
+        background-repeat: no-repeat; /* 防止圖片重複 */
+        border-radius: 4px; /* 圖片輕微圓角 */
+        margin-bottom: 10px; /* 與下方內容間隔 */
+      }
+
+      /* JS動態插入的內容警告區塊 */
+      .content-warning-block {
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        font-size: 0.9em;
+        text-align: left;
+        border-left-width: 4px;
+        border-left-style: solid;
+      }
+      .content-warning-block.harmful-style {
+        /* 有害內容警告 */
+        background-color: var(--harmful-bg);
+        color: var(--harmful-color);
+        border-left-color: var(--harmful-color);
+      }
+      .content-warning-block.beneficial-style {
+        /* 有益內容標記 (如果也用此元件) */
+        background-color: var(--success-bg);
+        color: var(--success-color);
+        border-left-color: var(--success-color);
+      }
+      .content-warning-block i {
+        margin-right: 8px;
+      }
+
+      /* nudge-bubble (正念提醒) 內部元素的樣式 */
+      .nudge-bubble .reminder-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .nudge-bubble .reminder-header i {
+        /* 顏色將由 JS 根據類型設定 */
+        margin-right: 10px;
+        font-size: 1.3em; /* 調整圖示大小 */
+      }
+      .nudge-bubble .reminder-header h3 {
+        margin: 0;
+        font-size: 1.1em;
+        font-weight: 600; /* 配合 .btn 字重 */
+        color: var(--text-color);
+      }
+      .nudge-bubble .reminder-content {
+        margin-bottom: 15px; /* 增加與按鈕的間距 */
+        text-align: left;
+        font-size: 0.95em;
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+      .nudge-bubble .reminder-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+      /* styles.css 中沒有 .btn-small，這裡為提醒框中的按鈕定義一個稍小的版本 */
+      .btn.btn-small {
+        padding: 8px 16px;
+        font-size: 0.9em;
+        font-weight: 500; /* 略微降低字重 */
+      }
+    </style>
+  </head>
+  <body>
+    <header class="page-header sim-main-header">
+      <h1 id="simAppTitle">InstaVerse（模擬）</h1>
+    </header>
+
+    <div class="simulation-banner">
+      <!-- 此 class 已在 styles.css 中定義 -->
+      這是模擬演示 — 展示正念連接如何進行內容偵測與提醒
+    </div>
+
+    <div class="sim-feed-container">
+      <p
+        style="margin-bottom: 20px; font-size: 0.95em; color: var(--text-color)"
+      >
+        這是一個模擬的社群媒體介面，用於展示正念連接的內容偵測與提醒功能。<br />
+        <span id="filterStatus" style="font-weight: 500; color: #555">
+          正在監控內容 - 將偵測潛在有害/有益內容
+        </span>
+      </p>
+
+      <button
+        onclick="window.location.href='dashboard.html'"
+        class="btn btn-secondary"
+      >
+        <i class="fas fa-arrow-left" style="margin-right: 8px"></i> 返回儀表板
+      </button>
+
+      <div class="sim-feed">
+        <!-- 模擬貼文 1 (無害) -->
+        <div class="feed-item">
+          <div class="post-header">
+            <div class="post-avatar">JL</div>
+            <div class="post-user">
+              <p class="post-username">旅行愛好者Jane</p>
+              <p class="post-time">2小時前</p>
+            </div>
+            <div class="post-options">
+              <i class="fas fa-ellipsis-h"></i>
+            </div>
+          </div>
+          <div class="feed-item-content">
+            <p class="post-text">
+              週末的城市探險！發現了這家超級可愛的咖啡店，牆上全是復古黑膠唱片。有誰知道這附近還有什麼值得一去的地方推薦嗎？
+            </p>
+            <div
+              class="feed-item-img"
+              style="background-image: url('images/cafe.jpg')"
+            ></div>
+            <div class="post-tags">
+              <span class="tag tag-neutral">#週末好去處</span>
+              <span class="tag tag-neutral">#城市探索</span>
+              <span class="tag tag-neutral">#咖啡廳</span>
+            </div>
+            <div class="post-actions">
+              <div class="post-action"><i class="far fa-heart"></i> 喜歡</div>
+              <div class="post-action"><i class="far fa-comment"></i> 評論</div>
+              <div class="post-action">
+                <i class="far fa-share-square"></i> 分享
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 模擬貼文 2 (無害/科技) -->
+        <div class="feed-item">
+          <div class="post-header">
+            <div class="post-avatar">TK</div>
+            <div class="post-user">
+              <p class="post-username">科技達人Tom</p>
+              <p class="post-time">4小時前</p>
+            </div>
+            <div class="post-options"><i class="fas fa-ellipsis-h"></i></div>
+          </div>
+          <div class="feed-item-content">
+            <p class="post-text">
+              終於收到了最新的智能家居設備！設置花了點時間，但現在可以用語音控制家裡的所有燈光和音樂了。科技真是太棒了！有沒有人也在用這個系統？有什麼好用的技巧可以分享？
+            </p>
+            <div
+              class="feed-item-img"
+              style="background-image: url('images/smarthome.jpg')"
+            ></div>
+            <div class="post-tags">
+              <span class="tag tag-neutral">#智能家居</span>
+              <span class="tag tag-neutral">#科技生活</span>
+              <span class="tag tag-neutral">#開箱</span>
+            </div>
+            <div class="post-actions">
+              <div class="post-action"><i class="far fa-heart"></i> 喜歡</div>
+              <div class="post-action"><i class="far fa-comment"></i> 評論</div>
+              <div class="post-action">
+                <i class="far fa-share-square"></i> 分享
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 模擬貼文 3 (無害/美食) -->
+        <div class="feed-item">
+          <div class="post-header">
+            <div class="post-avatar">ML</div>
+            <div class="post-user">
+              <p class="post-username">美食家Mei</p>
+              <p class="post-time">昨天</p>
+            </div>
+            <div class="post-options"><i class="fas fa-ellipsis-h"></i></div>
+          </div>
+          <div class="feed-item-content">
+            <p class="post-text">
+              自製麵包的實驗終於成功了！這次用了特殊的發酵技巧，口感超級鬆軟，而且香氣撲鼻。如果有人想要食譜請在評論區告訴我！
+            </p>
+            <div
+              class="feed-item-img"
+              style="background-image: url('images/bread.jpg')"
+            ></div>
+            <div class="post-tags">
+              <span class="tag tag-neutral">#家庭烘焙</span>
+              <span class="tag tag-beneficial">#手工麵包</span>
+              <span class="tag tag-neutral">#美食分享</span>
+            </div>
+            <div class="post-actions">
+              <div class="post-action"><i class="far fa-heart"></i> 喜歡</div>
+              <div class="post-action"><i class="far fa-comment"></i> 評論</div>
+              <div class="post-action">
+                <i class="far fa-share-square"></i> 分享
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 模擬貼文 4 (潛在有害 - 身材焦慮) -->
+        <div class="feed-item" data-content-type="harmful-bodyimage">
+          <div class="post-header">
+            <div class="post-avatar">BF</div>
+            <div class="post-user">
+              <p class="post-username">健身狂Bella</p>
+              <p class="post-time">15分鐘前</p>
+            </div>
+            <div class="post-options"><i class="fas fa-ellipsis-h"></i></div>
+          </div>
+          <div class="feed-item-content">
+            <p class="post-text">
+              夏天要到了，離我的理想體重還差5公斤！😭
+              每天都在努力運動，嚴格控制飲食，但體重就是不動...
+              覺得好焦慮啊！大家有什麼快速有效的方法嗎？一定要在去海邊前瘦下來！
+            </p>
+            <div
+              class="feed-item-img"
+              style="background-image: url('images/fit.jpg')"
+            ></div>
+            <div class="post-tags">
+              <span class="tag tag-neutral">#減肥</span>
+              <span class="tag tag-harmful">#身材焦慮</span>
+              <span class="tag tag-neutral">#求助</span>
+              <span class="tag tag-neutral">#夏日目標</span>
+            </div>
+            <div class="post-actions">
+              <div class="post-action"><i class="far fa-heart"></i> 喜歡</div>
+              <div class="post-action"><i class="far fa-comment"></i> 評論</div>
+              <div class="post-action">
+                <i class="far fa-share-square"></i> 分享
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 模擬貼文 5 (有益 - 勵志/學習) -->
+        <div class="feed-item" data-content-type="beneficial-learning">
+          <div class="post-header">
+            <div class="post-avatar">LS</div>
+            <div class="post-user">
+              <p class="post-username">學習者Leo</p>
+              <p class="post-time">1小時前</p>
+            </div>
+            <div class="post-options"><i class="fas fa-ellipsis-h"></i></div>
+          </div>
+          <div class="feed-item-content">
+            <p class="post-text">
+              最近開始學習新的程式語言，雖然一開始有點困難，但每解決一個問題都很有成就感！💪
+              分享一個很棒的線上課程資源給大家，一起學習成長吧！連結在留言區。
+            </p>
+            <div
+              class="feed-item-img"
+              style="background-image: url('images/code.jpg')"
+            ></div>
+            <div class="post-tags">
+              <span class="tag tag-beneficial">#持續學習</span>
+              <span class="tag tag-neutral">#程式設計</span>
+              <span class="tag tag-neutral">#自我提升</span>
+              <span class="tag tag-neutral">#資源分享</span>
+            </div>
+            <div class="post-actions">
+              <div class="post-action"><i class="far fa-heart"></i> 喜歡</div>
+              <div class="post-action"><i class="far fa-comment"></i> 評論</div>
+              <div class="post-action">
+                <i class="far fa-share-square"></i> 分享
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 模擬貼文 6 (中性 - 日常抱怨) -->
+        <div class="feed-item" data-content-type="neutral-complaint">
+          <div class="post-header">
+            <div class="post-avatar">SK</div>
+            <div class="post-user">
+              <p class="post-username">厭世小職員Sam</p>
+              <p class="post-time">3小時前</p>
+            </div>
+            <div class="post-options"><i class="fas fa-ellipsis-h"></i></div>
+          </div>
+          <div class="feed-item-content">
+            <p class="post-text">
+              今天又是個Blue Monday... 😩
+              會議開不完，事情做不完，好想放假啊！有人跟我一樣嗎？
+            </p>
+            <div
+              class="feed-item-img"
+              style="background-image: url('images/work.jpg')"
+            ></div>
+            <div class="post-tags">
+              <span class="tag tag-neutral">#BlueMonday</span>
+              <span class="tag tag-neutral">#社畜人生</span>
+              <span class="tag tag-neutral">#想放假</span>
+            </div>
+            <div class="post-actions">
+              <div class="post-action"><i class="far fa-heart"></i> 喜歡</div>
+              <div class="post-action"><i class="far fa-comment"></i> 評論</div>
+              <div class="post-action">
+                <i class="far fa-share-square"></i> 分享
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 模擬貼文 7 (潛在有害 - 網路謠言/假訊息) -->
+        <div class="feed-item" data-content-type="harmful-misinformation">
+          <div class="post-header">
+            <div class="post-avatar">CX</div>
+            <div class="post-user">
+              <p class="post-username">真相追查者Chris</p>
+              <p class="post-time">5小時前</p>
+            </div>
+            <div class="post-options"><i class="fas fa-ellipsis-h"></i></div>
+          </div>
+          <div class="feed-item-content">
+            <p class="post-text">
+              注意！內部消息指出，最近超市的雞蛋都有問題，千萬不要買！聽說吃了會...
+              (內容過於驚悚，自行判斷) #速傳 #健康警訊 #大家小心
+            </p>
+            <div
+              class="feed-item-img"
+              style="background-image: url('images/egg.jpg')"
+            ></div>
+            <div class="post-tags">
+              <span class="tag tag-harmful">#食安問題</span>
+              <span class="tag tag-neutral">#謠言止於智者</span>
+              <span class="tag tag-neutral">#求證</span>
+            </div>
+            <div class="post-actions">
+              <div class="post-action"><i class="far fa-heart"></i> 喜歡</div>
+              <div class="post-action"><i class="far fa-comment"></i> 評論</div>
+              <div class="post-action">
+                <i class="far fa-share-square"></i> 分享
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 模擬貼文 8 (有益 - 戶外活動) -->
+        <div class="feed-item" data-content-type="beneficial-outdoor">
+          <div class="post-header">
+            <div class="post-avatar">OW</div>
+            <div class="post-user">
+              <p class="post-username">戶外咖Olivia</p>
+              <p class="post-time">昨天下午</p>
+            </div>
+            <div class="post-options"><i class="fas fa-ellipsis-h"></i></div>
+          </div>
+          <div class="feed-item-content">
+            <p class="post-text">
+              週末爬山，吸收滿滿芬多精！山頂的風景真的太美了，所有的疲勞都值得。推薦大家多到戶外走走，有益身心健康！⛰️☀️
+            </p>
+            <div
+              class="feed-item-img"
+              style="background-image: url('images/outdoor.jpg')"
+            ></div>
+            <div class="post-tags">
+              <span class="tag tag-beneficial">#爬山</span>
+              <span class="tag tag-neutral">#戶外活動</span>
+              <span class="tag tag-neutral">#自然風光</span>
+              <span class="tag tag-neutral">#健康生活</span>
+            </div>
+            <div class="post-actions">
+              <div class="post-action"><i class="far fa-heart"></i> 喜歡</div>
+              <div class="post-action"><i class="far fa-comment"></i> 評論</div>
+              <div class="post-action">
+                <i class="far fa-share-square"></i> 分享
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 模擬貼文 9 (潛在有害 - 比較/炫耀) -->
+        <div class="feed-item" data-content-type="harmful-comparison">
+          <div class="post-header">
+            <div class="post-avatar">RR</div>
+            <div class="post-user">
+              <p class="post-username">人生勝利組Richie</p>
+              <p class="post-time">2天前</p>
+            </div>
+            <div class="post-options"><i class="fas fa-ellipsis-h"></i></div>
+          </div>
+          <div class="feed-item-content">
+            <p class="post-text">
+              又入手一台新車，犒賞一下努力工作的自己。果然還是歐洲車的駕馭感最棒！下個目標是遊艇
+              🛥️ 大家今年有什麼成就嗎？ #新車開箱 #奢華生活 #努力的成果
+              #人生目標
+            </p>
+            <div
+              class="feed-item-img"
+              style="background-image: url('images/money.jpg')"
+            ></div>
+            <div class="post-tags">
+              <span class="tag tag-neutral">#夢想車款</span>
+              <span class="tag tag-harmful">#財富自由</span>
+              <span class="tag tag-neutral">#生活品味</span>
+            </div>
+            <div class="post-actions">
+              <div class="post-action"><i class="far fa-heart"></i> 喜歡</div>
+              <div class="post-action"><i class="far fa-comment"></i> 評論</div>
+              <div class="post-action">
+                <i class="far fa-share-square"></i> 分享
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 模擬貼文 10 (有益 - 心理健康提醒) -->
+        <div class="feed-item" data-content-type="beneficial-mentalhealth">
+          <div class="post-header">
+            <div class="post-avatar">MH</div>
+            <div class="post-user">
+              <p class="post-username">心靈小棧</p>
+              <p class="post-time">3天前</p>
+            </div>
+            <div class="post-options"><i class="fas fa-ellipsis-h"></i></div>
+          </div>
+          <div class="feed-item-content">
+            <p class="post-text">
+              嘿，親愛的你，記得每天給自己一點時間靜下來。可以是聽聽音樂、看看書，或者只是發呆。照顧好自己的情緒，比什麼都重要。如果你需要聊聊，我們一直都在。❤️
+            </p>
+            <div
+              class="feed-item-img"
+              style="background-image: url('images/love.jpg')"
+            ></div>
+            <div class="post-tags">
+              <span class="tag tag-beneficial">#心理健康</span>
+              <span class="tag tag-beneficial">#自我關懷</span>
+              <span class="tag tag-neutral">#正能量</span>
+              <span class="tag tag-neutral">#情緒支持</span>
+            </div>
+            <div class="post-actions">
+              <div class="post-action"><i class="far fa-heart"></i> 喜歡</div>
+              <div class="post-action"><i class="far fa-comment"></i> 評論</div>
+              <div class="post-action">
+                <i class="far fa-share-square"></i> 分享
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 模擬貼文 11 (潛在有害 - 網路霸凌/攻擊性言論的開端) -->
+        <div class="feed-item" data-content-type="harmful-aggression">
+          <div class="post-header">
+            <div class="post-avatar">AX</div>
+            <div class="post-user">
+              <p class="post-username">匿名鍵盤俠</p>
+              <p class="post-time">剛剛</p>
+            </div>
+            <div class="post-options"><i class="fas fa-ellipsis-h"></i></div>
+          </div>
+          <div class="feed-item-content">
+            <p class="post-text">
+              某某網紅的最新影片真是看得我拳頭都硬了，講話那麼沒內容還一堆人捧？腦粉是不是都沒判斷力啊？
+              #看不下去 #網紅亂象 #實話實說
+            </p>
+            <div
+              class="feed-item-img"
+              style="background-image: url('images/fuck.jpg')"
+            ></div>
+            <div class="post-tags">
+              <span class="tag tag-harmful">#公審</span>
+              <span class="tag tag-harmful">#引戰</span>
+              <span class="tag tag-neutral">#網路文化</span>
+            </div>
+            <div class="post-actions">
+              <div class="post-action"><i class="far fa-heart"></i> 喜歡</div>
+              <div class="post-action"><i class="far fa-comment"></i> 評論</div>
+              <div class="post-action">
+                <i class="far fa-share-square"></i> 分享
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="loading-indicator">
+          <div class="spinner">
+            <i class="fas fa-circle-notch fa-spin"></i>
+          </div>
+          載入更多內容...
+        </div>
+      </div>
+      <!-- end .sim-feed -->
+    </div>
+    <!-- end .sim-feed-container -->
+
+    <div class="nudge-bubble" id="mindfulReminder" style="display: none">
+      <button class="bubble-close" onclick="dismissReminder()">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="reminder-header">
+        <i class="fas fa-lightbulb"></i>
+        <h3>正念提醒</h3>
+      </div>
+      <div class="reminder-content">
+        <p id="reminderText"></p>
+      </div>
+      <div class="reminder-actions">
+        <button class="btn btn-secondary btn-small" onclick="dismissReminder()">
+          稍後提醒
+        </button>
+        <button class="btn btn-primary btn-small" onclick="dismissReminder()">
+          好的
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const appName = urlParams.get("app") || "InstaVerse";
+      document.getElementById("simAppTitle").textContent = `${appName}（模擬）`;
+
+      window.addEventListener("scroll", function () {
+        if (
+          window.innerHeight + window.scrollY >=
+          document.body.offsetHeight - 500
+        ) {
+          // 可以在此處添加載入更多貼文的邏輯
+        }
+      });
+
+      const reminderSettings = {
+        timeSpentDelay: 30 * 1000, // 改為30秒（實際應用中可設為15分鐘）
+        harmfulContentPopupDelay: 1000, // 減少延遲以更好地回應有害內容
+        beneficialContentPopupDelay: 1500, // 輕微增加有益內容的延遲
+        reminderCooldown: 10 * 1000, // 提醒間隔冷卻時間
+
+        timeSpentMessage:
+          "您已經瀏覽社群媒體一段時間了。要不要短暫休息一下，深呼吸幾次？",
+        harmfulBodyImageMessage:
+          "注意到您可能正在瀏覽關於身材焦慮的內容。提醒您，每個人的身體都是獨特的，請溫柔對待自己。需要休息一下嗎？",
+        harmfulMisinformationMessage:
+          "這則訊息可能包含未經證實的內容。請注意辨別資訊來源，保持批判性思考。要不要看看其他類型的內容？",
+        harmfulComparisonMessage:
+          "社群媒體上常充滿比較。提醒您，每個人的人生進程和價值都不同。專注於自己，就很棒！",
+        harmfulAggressionMessage:
+          "偵測到較為激烈的言論。網路交流時，保持友善和尊重很重要喔。需要轉換一下心情嗎？",
+        beneficialLearningMessage:
+          "這篇關於學習的內容很棒！持續探索新知能帶來很多樂趣和成長喔。",
+        beneficialOutdoorMessage:
+          "多接觸大自然有益身心！這篇戶外活動的分享真不錯。",
+        beneficialMentalHealthMessage:
+          "關照自己的心理健康非常重要。這是一篇很溫暖的提醒！",
+      };
+
+      let timeSpentTimer;
+      let activeNudgeTimeout;
+      let lastReminderTime = 0; // 追踪上次提醒時間
+      let processedContentTypes = new Set(); // 追踪已處理過的內容類型
+
+      function showMindfulReminder(message, type = "timeSpent") {
+        const now = Date.now();
+
+        // 如果這個內容類型已經被處理過，或者距離上次提醒時間太短，則不顯示
+        if (
+          processedContentTypes.has(type) ||
+          now - lastReminderTime < reminderSettings.reminderCooldown
+        ) {
+          return;
+        }
+
+        const reminderElement = document.getElementById("mindfulReminder");
+        if (!reminderElement) return;
+
+        // 更新上次提醒時間和已處理內容類型
+        lastReminderTime = now;
+        processedContentTypes.add(type);
+
+        document.getElementById("reminderText").textContent = message;
+
+        const iconElement = reminderElement.querySelector(".reminder-header i");
+        iconElement.className = "fas"; // 重設 icon class
+
+        if (type.startsWith("harmful")) {
+          iconElement.classList.add("fa-exclamation-triangle");
+          iconElement.style.color = "var(--harmful-color)";
+        } else if (type.startsWith("beneficial")) {
+          iconElement.classList.add("fa-check-circle");
+          iconElement.style.color = "var(--success-color)";
+        } else {
+          // timeSpent or neutral
+          iconElement.classList.add("fa-lightbulb");
+          iconElement.style.color = "var(--primary-color)";
+        }
+
+        reminderElement.style.display = "block";
+        // 重新觸發 styles.css 中的 slideIn 動畫
+        reminderElement.style.animation = "none";
+        requestAnimationFrame(() => {
+          reminderElement.style.animation = "slideIn 0.3s ease-out forwards";
+        });
+
+        clearTimeout(activeNudgeTimeout);
+        activeNudgeTimeout = setTimeout(() => {
+          if (reminderElement.style.display === "block") {
+            dismissReminder();
+          }
+        }, 20000); // 減少自動關閉時間，讓用戶有更多機會看到
+      }
+
+      function resetTimeSpentTimer() {
+        clearTimeout(timeSpentTimer);
+        timeSpentTimer = setTimeout(() => {
+          const reminderElement = document.getElementById("mindfulReminder");
+          const now = Date.now();
+
+          // 確保時間提醒與其他提醒有足夠間隔
+          if (
+            (!reminderElement || reminderElement.style.display === "none") &&
+            now - lastReminderTime > reminderSettings.reminderCooldown
+          ) {
+            showMindfulReminder(reminderSettings.timeSpentMessage, "timeSpent");
+          }
+        }, reminderSettings.timeSpentDelay);
+      }
+
+      function dismissReminder() {
+        const reminderElement = document.getElementById("mindfulReminder");
+        if (reminderElement) {
+          reminderElement.style.animation = "slideOut 0.3s ease-out forwards";
+          setTimeout(() => {
+            reminderElement.style.display = "none";
+          }, 300);
+        }
+        clearTimeout(activeNudgeTimeout);
+        resetTimeSpentTimer();
+      }
+
+      document.querySelectorAll(".post-action").forEach((action) => {
+        action.addEventListener("click", function () {
+          resetTimeSpentTimer();
+          const icon = this.querySelector("i");
+          if (icon.classList.contains("fa-heart")) {
+            if (icon.classList.contains("far")) {
+              icon.classList.remove("far");
+              icon.classList.add("fas");
+              // 按讚後的顏色由 .post-action .fas.fa-heart CSS 規則控制
+            } else {
+              icon.classList.remove("fas");
+              icon.classList.add("far");
+            }
+          }
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // 初始化時重置計時器
+        resetTimeSpentTimer();
+
+        const posts = document.querySelectorAll(
+          ".feed-item[data-content-type]"
+        );
+
+        posts.forEach((post) => {
+          const contentType = post.dataset.contentType;
+          const postContentArea = post.querySelector(".feed-item-content");
+          if (!postContentArea) return;
+          const firstChildOfContent =
+            postContentArea.querySelector(".post-text");
+
+          // 根據內容類型設置不同的延遲時間
+          let detectionDelay;
+          if (contentType.startsWith("harmful")) {
+            detectionDelay = Math.random() * 1000 + 500; // 0.5-1.5 秒
+          } else {
+            detectionDelay = Math.random() * 1500 + 1000; // 1-2.5 秒
+          }
+
+          setTimeout(() => {
+            if (contentType.startsWith("harmful")) {
+              const warningDiv = document.createElement("div");
+              // 使用臨時 <style> 中定義的 class
+              warningDiv.classList.add(
+                "content-warning-block",
+                "harmful-style"
+              );
+
+              let warningMsgIntro = "";
+              let nudgeMessage = "";
+              switch (contentType) {
+                case "harmful-bodyimage":
+                  warningMsgIntro = "內容提醒：身材焦慮";
+                  nudgeMessage = reminderSettings.harmfulBodyImageMessage;
+                  break;
+                case "harmful-misinformation":
+                  warningMsgIntro = "內容提醒：未經證實資訊";
+                  nudgeMessage = reminderSettings.harmfulMisinformationMessage;
+                  break;
+                case "harmful-comparison":
+                  warningMsgIntro = "內容提醒：過度比較";
+                  nudgeMessage = reminderSettings.harmfulComparisonMessage;
+                  break;
+                case "harmful-aggression":
+                  warningMsgIntro = "內容提醒：攻擊性言論";
+                  nudgeMessage = reminderSettings.harmfulAggressionMessage;
+                  break;
+                default:
+                  warningMsgIntro = "內容提醒：潛在不適內容";
+                  nudgeMessage = "偵測到潛在令人不適內容。";
+              }
+              warningDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${warningMsgIntro}`;
+              if (firstChildOfContent) {
+                postContentArea.insertBefore(warningDiv, firstChildOfContent);
+              } else {
+                // 如果沒有 post-text (例如只有圖片的貼文)，加到最前面
+                postContentArea.prepend(warningDiv);
+              }
+
+              const reminderElement =
+                document.getElementById("mindfulReminder");
+              if (
+                !reminderElement ||
+                reminderElement.style.display === "none"
+              ) {
+                setTimeout(
+                  () => showMindfulReminder(nudgeMessage, contentType),
+                  reminderSettings.harmfulContentPopupDelay
+                );
+              }
+            } else if (contentType.startsWith("beneficial")) {
+              const badge = document.createElement("div"); // 使用 div 使其能佔據一行並應用 margin-bottom
+              // 使用 styles.css 中的 .tag-beneficial (加上臨時 <style> 中的 .post-tags .tag 基礎樣式)
+              badge.classList.add("tag", "tag-beneficial");
+              badge.style.marginBottom = "10px";
+              badge.style.display = "inline-block"; // 使 margin 生效且不影響同行文字
+
+              let beneficialMsgIntro = "";
+              let nudgeMessage = "";
+              switch (contentType) {
+                case "beneficial-learning":
+                  beneficialMsgIntro = "優質內容：學習成長";
+                  nudgeMessage = reminderSettings.beneficialLearningMessage;
+                  break;
+                case "beneficial-outdoor":
+                  beneficialMsgIntro = "優質內容：戶外活動";
+                  nudgeMessage = reminderSettings.beneficialOutdoorMessage;
+                  break;
+                case "beneficial-mentalhealth":
+                  beneficialMsgIntro = "優質內容：心理健康";
+                  nudgeMessage = reminderSettings.beneficialMentalHealthMessage;
+                  break;
+                default:
+                  beneficialMsgIntro = "優質內容";
+                  nudgeMessage = "這是一則有益的內容！";
+              }
+              badge.innerHTML = `<i class="fas fa-check-circle" style="margin-right: 5px;"></i> ${beneficialMsgIntro}`;
+              if (firstChildOfContent) {
+                postContentArea.insertBefore(badge, firstChildOfContent);
+              } else {
+                postContentArea.prepend(badge);
+              }
+
+              const reminderElement =
+                document.getElementById("mindfulReminder");
+              if (
+                !reminderElement ||
+                reminderElement.style.display === "none"
+              ) {
+                setTimeout(
+                  () => showMindfulReminder(nudgeMessage, contentType),
+                  reminderSettings.beneficialContentPopupDelay
+                );
+              }
+            }
+          }, detectionDelay);
+        });
+      });
+
+      // 添加CSS動畫
+      document.head.insertAdjacentHTML(
+        "beforeend",
+        `
+        <style>
+          @keyframes slideOut {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(20px); opacity: 0; }
+          }
+        </style>
+      `
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>正念連接 - 儀表板</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>小明，您好！</h1>
+    </header>
+
+    <main class="dashboard-content container">
+      <!-- 每日签到部分 -->
+      <div class="card">
+        <h2>今天感覺如何？</h2>
+        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px">
+          記錄您的心情，有助於了解情緒與社群使用的關聯。
+        </p>
+        <div class="emoji-btn-group">
+          <button class="emoji-btn" data-mood="happy" aria-label="開心">
+            😊
+          </button>
+          <button class="emoji-btn" data-mood="neutral" aria-label="平静">
+            😐
+          </button>
+          <button class="emoji-btn" data-mood="stressed" aria-label="壓力">
+            😟
+          </button>
+          <button class="emoji-btn" data-mood="bored" aria-label="無聊">
+            🥱
+          </button>
+        </div>
+        <div
+          id="moodResponse"
+          style="
+            text-align: center;
+            color: var(--primary-color);
+            font-weight: 500;
+            height: 24px;
+            margin-top: 10px;
+          "
+        ></div>
+      </div>
+
+      <!-- 今日意图部分 -->
+      <div class="card">
+        <h2>今日使用社群媒體的意圖是？</h2>
+        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px">
+          設定意圖，讓「正念連接」為您過濾並推薦相關內容。
+        </p>
+        <div class="choice-chips">
+          <div class="choice-chip" data-intent="learn">💡 學習新知</div>
+          <div class="choice-chip" data-intent="relax">🧘‍♀️ 放鬆身心</div>
+          <div class="choice-chip" data-intent="connect">🤝 維繫關係</div>
+          <div class="choice-chip" data-intent="news">📰 查看資訊</div>
+          <div class="choice-chip" data-intent="none">🚫 今天不用</div>
+        </div>
+        <div
+          id="intentSet"
+          style="
+            display: none;
+            margin-top: 20px;
+            background-color: #e8f8f7; /* Adjusted background */
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--primary-color);
+          "
+        >
+          <p style="margin: 0; font-weight: 500">
+            今日意圖已設定為：
+            <span
+              id="selectedIntentText"
+              style="color: var(--primary-color)"
+            ></span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 每日统计摘要 -->
+      <div class="card">
+        <h2>今日概覽</h2>
+        <div
+          style="
+            display: flex;
+            justify-content: space-around; /* Adjusted for better spacing */
+            margin-top: 20px; /* Increased margin */
+            text-align: center;
+          "
+        >
+          <div style="flex: 1; padding: 0 10px">
+            <p style="font-size: 0.9em; color: #777; margin-bottom: 8px">
+              總使用時間
+            </p>
+            <p
+              style="
+                font-size: 1.8em;
+                font-weight: 600; /* Increased font-weight */
+                color: var(--text-color);
+              "
+            >
+              1<span style="font-size: 0.6em; font-weight: 400">小時</span
+              >45<span style="font-size: 0.6em; font-weight: 400">分</span>
+            </p>
+          </div>
+          <div
+            style="
+              flex: 1;
+              padding: 0 10px; /* Added padding */
+              border-left: 1px solid var(--border-color);
+              border-right: 1px solid var(--border-color);
+            "
+          >
+            <p style="font-size: 0.9em; color: #777; margin-bottom: 8px">
+              正念使用比例
+            </p>
+            <p
+              style="
+                font-size: 1.8em;
+                font-weight: 600; /* Increased font-weight */
+                color: var(--success-color);
+              "
+            >
+              68%
+            </p>
+          </div>
+          <div style="flex: 1; padding: 0 10px">
+            <p style="font-size: 0.9em; color: #777; margin-bottom: 8px">
+              專注連勝
+            </p>
+            <p
+              style="
+                font-size: 1.8em;
+                font-weight: 600; /* Increased font-weight */
+                color: var(--accent-color);
+              "
+            >
+              5<span style="font-size: 0.6em; font-weight: 400">天</span>
+            </p>
+          </div>
+        </div>
+        <button
+          class="btn btn-tertiary"
+          onclick="window.location.href='reports.html'"
+          style="margin-top: 20px; width: 100%"
+        >
+          查看詳細報告
+          <i
+            class="fas fa-chevron-right"
+            style="font-size: 0.8em; margin-left: 8px"
+          ></i>
+        </button>
+      </div>
+    </main>
+    <nav class="bottom-nav-bar">
+      <a href="dashboard.html" class="nav-item active">
+        <i class="fas fa-home"></i>
+        <span>主頁</span>
+      </a>
+      <a href="reports.html" class="nav-item">
+        <i class="fas fa-chart-pie"></i>
+        <span>報告</span>
+      </a>
+      <a href="content_mode_selection.html" class="nav-item">
+        <i class="fas fa-filter"></i>
+        <span>內容過濾</span>
+      </a>
+      <a href="sim_social_feed.html" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>功能展示</span>
+      </a>
+    </nav>
+
+    <script>
+      // 情绪按钮交互
+      const emojiButtons = document.querySelectorAll(".emoji-btn");
+      const moodResponse = document.getElementById("moodResponse");
+      emojiButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          emojiButtons.forEach((btn) => btn.classList.remove("selected"));
+          this.classList.add("selected");
+          const mood = this.dataset.mood;
+          let message = "";
+          switch (mood) {
+            case "happy":
+              message = "很高興您今天心情愉快！";
+              break;
+            case "neutral":
+              message = "保持平靜的心態很棒。";
+              break;
+            case "stressed":
+              message = "深呼吸，正念連接能幫助您放鬆。";
+              break;
+            case "bored":
+              message = "讓我們探索一些有趣且有益的內容！";
+              break;
+          }
+          moodResponse.textContent = message;
+          moodResponse.style.opacity = 0;
+          setTimeout(() => {
+            moodResponse.style.opacity = 1;
+            moodResponse.style.transition = "opacity 0.3s";
+          }, 0);
+        });
+      });
+
+      // 意图选择交互
+      const choiceChips = document.querySelectorAll(".choice-chip");
+      const intentSetDiv = document.getElementById("intentSet");
+      const selectedIntentTextSpan =
+        document.getElementById("selectedIntentText");
+
+      choiceChips.forEach((chip) => {
+        chip.addEventListener("click", function () {
+          choiceChips.forEach((c) => c.classList.remove("selected"));
+          this.classList.add("selected");
+          const intentText = this.textContent; // Get text directly from chip
+          selectedIntentTextSpan.textContent = intentText;
+          intentSetDiv.style.display = "block";
+          intentSetDiv.style.opacity = 0;
+          setTimeout(() => {
+            intentSetDiv.style.opacity = 1;
+            intentSetDiv.style.transition = "opacity 0.3s";
+          }, 0);
+        });
+      });
+    </script>
+  </body>
+</html>

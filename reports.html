@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>正念連接 - 使用報告</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 为图表添加Chart.js库 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>你的使用洞察</h1>
+    </header>
+
+    <main class="reports-container">
+      <!-- 本週概覽卡片 -->
+      <div class="card">
+        <h2>本週概覽</h2>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 20px;
+          "
+        >
+          <div
+            style="
+              text-align: center;
+              flex: 1;
+              min-width: 120px;
+              margin-bottom: 15px;
+            "
+          >
+            <p style="font-size: 0.9em; color: #777">總使用時間</p>
+            <p
+              style="
+                font-size: 1.8em;
+                font-weight: 500;
+                color: var(--text-color);
+              "
+            >
+              8小時12分
+            </p>
+          </div>
+          <div
+            style="
+              text-align: center;
+              flex: 1;
+              min-width: 120px;
+              margin-bottom: 15px;
+            "
+          >
+            <p style="font-size: 0.9em; color: #777">日均使用</p>
+            <p
+              style="
+                font-size: 1.8em;
+                font-weight: 500;
+                color: var(--text-color);
+              "
+            >
+              1小時10分
+            </p>
+          </div>
+          <div
+            style="
+              text-align: center;
+              flex: 1;
+              min-width: 120px;
+              margin-bottom: 15px;
+            "
+          >
+            <p style="font-size: 0.9em; color: #777">正念使用比例</p>
+            <p
+              style="
+                font-size: 1.8em;
+                font-weight: 500;
+                color: var(--success-color);
+              "
+            >
+              68%
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- 每日使用趨勢圖表 -->
+      <div class="chart-container">
+        <h2>每日使用趨勢</h2>
+        <div style="margin-top: 15px">
+          <canvas id="dailyUsageChart"></canvas>
+        </div>
+      </div>
+
+      <!-- 使用時間質量評估 -->
+      <div class="chart-container">
+        <h2>使用質量分佈</h2>
+        <div style="margin-top: 15px">
+          <canvas id="usageQualityChart"></canvas>
+        </div>
+        <div
+          style="
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+          "
+        >
+          <p>
+            <i
+              class="fas fa-info-circle"
+              style="color: var(--primary-color); margin-right: 5px"
+            ></i>
+            <strong>有意義使用</strong
+            >包括：學習相關內容、專注交流、創意靈感和自我提升活動。
+          </p>
+        </div>
+      </div>
+
+      <!-- 情緒影響分析 -->
+      <div class="chart-container">
+        <h2>使用前後情緒變化</h2>
+        <div style="margin-top: 15px">
+          <canvas id="moodChart"></canvas>
+        </div>
+        <div
+          style="
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+          "
+        >
+          <p style="margin-bottom: 10px">
+            <i
+              class="fas fa-lightbulb"
+              style="color: var(--muted-accent-color); margin-right: 5px"
+            ></i>
+            <strong>洞察:</strong>
+            當你在感到壓力或無聊時使用社群媒體，使用後情緒通常沒有改善。
+          </p>
+        </div>
+      </div>
+
+      <!-- 高峰使用時間 -->
+      <div class="chart-container">
+        <h2>高峰使用時間</h2>
+        <div style="margin-top: 15px">
+          <canvas id="peakTimeChart"></canvas>
+        </div>
+        <div
+          style="
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+          "
+        >
+          <p>
+            <i
+              class="fas fa-clock"
+              style="color: var(--primary-color); margin-right: 5px"
+            ></i>
+            你的使用高峰期是在
+            <strong>晚上9-11點</strong>，這可能會影響你的睡眠品質。
+          </p>
+        </div>
+      </div>
+
+      <!-- 最常查看的內容類型 -->
+      <div class="card">
+        <h2>你最常關注的內容</h2>
+        <div style="margin-top: 20px">
+          <div style="display: flex; align-items: center; margin-bottom: 15px">
+            <div
+              style="
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+                background-color: #eaeaea;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 15px;
+              "
+            >
+              <i class="fas fa-music" style="color: var(--accent-color)"></i>
+            </div>
+            <div style="flex-grow: 1">
+              <h3 style="margin: 0; font-size: 1.1em">音樂相關內容</h3>
+              <p style="margin: 5px 0 0 0; color: #777; font-size: 0.9em">
+                約佔總瀏覽時間的28%
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; margin-bottom: 15px">
+            <div
+              style="
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+                background-color: #eaeaea;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 15px;
+              "
+            >
+              <i class="fas fa-utensils" style="color: var(--accent-color)"></i>
+            </div>
+            <div style="flex-grow: 1">
+              <h3 style="margin: 0; font-size: 1.1em">美食/烹飪內容</h3>
+              <p style="margin: 5px 0 0 0; color: #777; font-size: 0.9em">
+                約佔總瀏覽時間的22%
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; margin-bottom: 15px">
+            <div
+              style="
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+                background-color: #eaeaea;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 15px;
+              "
+            >
+              <i
+                class="fas fa-graduation-cap"
+                style="color: var(--accent-color)"
+              ></i>
+            </div>
+            <div style="flex-grow: 1">
+              <h3 style="margin: 0; font-size: 1.1em">教育/學習內容</h3>
+              <p style="margin: 5px 0 0 0; color: #777; font-size: 0.9em">
+                約佔總瀏覽時間的18%
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; margin-bottom: 15px">
+            <div
+              style="
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+                background-color: #eaeaea;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 15px;
+              "
+            >
+              <i class="fas fa-laugh" style="color: var(--accent-color)"></i>
+            </div>
+            <div style="flex-grow: 1">
+              <h3 style="margin: 0; font-size: 1.1em">幽默/娛樂內容</h3>
+              <p style="margin: 5px 0 0 0; color: #777; font-size: 0.9em">
+                約佔總瀏覽時間的15%
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center">
+            <div
+              style="
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+                background-color: #eaeaea;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 15px;
+              "
+            >
+              <i class="fas fa-users" style="color: var(--accent-color)"></i>
+            </div>
+            <div style="flex-grow: 1">
+              <h3 style="margin: 0; font-size: 1.1em">社交/朋友動態</h3>
+              <p style="margin: 5px 0 0 0; color: #777; font-size: 0.9em">
+                約佔總瀏覽時間的12%
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 個性化建議卡片 -->
+      <div class="card" style="border-left: 4px solid var(--accent-color)">
+        <h2>本週建議</h2>
+        <div style="margin-top: 20px">
+          <div
+            style="
+              margin-bottom: 15px;
+              padding-bottom: 15px;
+              border-bottom: 1px solid var(--border-color);
+            "
+          >
+            <h3 style="margin: 0 0 10px 0; font-size: 1.1em">
+              <i
+                class="fas fa-lightbulb"
+                style="color: var(--muted-accent-color); margin-right: 8px"
+              ></i>
+              建議嘗試
+            </h3>
+            <p>今晚可以花3分鐘時間看知識型影片，而不是無目的瀏覽。</p>
+          </div>
+
+          <div
+            style="
+              margin-bottom: 15px;
+              padding-bottom: 15px;
+              border-bottom: 1px solid var(--border-color);
+            "
+          >
+            <h3 style="margin: 0 0 10px 0; font-size: 1.1em">
+              <i
+                class="fas fa-moon"
+                style="color: var(--primary-color); margin-right: 8px"
+              ></i>
+              睡眠改善
+            </h3>
+            <p>
+              明天建議中午避免滑手機，改在晚上9點前完成社群媒體使用，有助於提高睡眠品質。
+            </p>
+          </div>
+
+          <div>
+            <h3 style="margin: 0 0 10px 0; font-size: 1.1em">
+              <i
+                class="fas fa-calendar-check"
+                style="color: var(--success-color); margin-right: 8px"
+              ></i>
+              週計劃
+            </h3>
+            <p>
+              為了更好地平衡社群媒體使用，建議設置週二和週四為「數位排毒日」，限制社群媒體使用時間在30分鐘以內。
+            </p>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%; margin-top: 20px">
+          設置新目標
+        </button>
+      </div>
+    </main>
+    <nav class="bottom-nav-bar">
+      <a href="dashboard.html" class="nav-item">
+        <i class="fas fa-home"></i>
+        <span>主頁</span>
+      </a>
+      <a href="reports.html" class="nav-item active">
+        <i class="fas fa-chart-pie"></i>
+        <span>報告</span>
+      </a>
+      <a href="content_mode_selection.html" class="nav-item">
+        <i class="fas fa-filter"></i>
+        <span>內容過濾</span>
+      </a>
+      <a href="sim_social_feed.html" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>功能展示</span>
+      </a>
+    </nav>
+
+    <script>
+      // 等DOM加载完成后初始化图表
+      document.addEventListener("DOMContentLoaded", function () {
+        // 每日使用趨勢圖表
+        const dailyUsageCtx = document
+          .getElementById("dailyUsageChart")
+          .getContext("2d");
+        const dailyUsageChart = new Chart(dailyUsageCtx, {
+          type: "bar",
+          data: {
+            labels: ["週一", "週二", "週三", "週四", "週五", "週六", "週日"],
+            datasets: [
+              {
+                label: "總使用時間（分鐘）",
+                data: [65, 45, 85, 70, 120, 95, 75],
+                backgroundColor: "rgba(160, 210, 219, 0.7)",
+                borderColor: "rgba(160, 210, 219, 1)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: "分鐘",
+                },
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            responsive: true,
+            maintainAspectRatio: true,
+          },
+        }); // 使用質量分佈圖表
+        const usageQualityCtx = document
+          .getElementById("usageQualityChart")
+          .getContext("2d");
+        const usageQualityChart = new Chart(usageQualityCtx, {
+          type: "pie",
+          data: {
+            labels: ["有意義使用", "無意義瀏覽"],
+            datasets: [
+              {
+                data: [68, 32],
+                backgroundColor: [
+                  "rgba(167, 215, 197, 0.8)",
+                  "rgba(255, 179, 167, 0.8)",
+                ],
+                borderColor: [
+                  "rgba(167, 215, 197, 1)",
+                  "rgba(255, 179, 167, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+              legend: {
+                position: "bottom",
+              },
+            },
+          },
+        }); // 情緒影響分析圖表
+        const moodCtx = document.getElementById("moodChart").getContext("2d");
+        const moodChart = new Chart(moodCtx, {
+          type: "bar",
+          data: {
+            labels: ["開心", "平靜", "壓力", "無聊", "疲倦"],
+            datasets: [
+              {
+                label: "使用前",
+                data: [20, 30, 60, 45, 25],
+                backgroundColor: "rgba(160, 210, 219, 0.7)",
+                borderColor: "rgba(160, 210, 219, 1)",
+                borderWidth: 1,
+              },
+              {
+                label: "使用後",
+                data: [25, 35, 55, 40, 30],
+                backgroundColor: "rgba(249, 228, 151, 0.7)",
+                borderColor: "rgba(249, 228, 151, 1)",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: "頻率（%）",
+                },
+              },
+            },
+            responsive: true,
+            maintainAspectRatio: true,
+          },
+        }); // 高峰使用時間圖表
+        const peakTimeCtx = document
+          .getElementById("peakTimeChart")
+          .getContext("2d");
+        const peakTimeChart = new Chart(peakTimeCtx, {
+          type: "line",
+          data: {
+            labels: [
+              "6-9點",
+              "9-12點",
+              "12-15點",
+              "15-18點",
+              "18-21點",
+              "21-24點",
+            ],
+            datasets: [
+              {
+                label: "使用頻率",
+                data: [15, 25, 30, 40, 60, 85],
+                fill: true,
+                backgroundColor: "rgba(255, 179, 167, 0.2)",
+                borderColor: "rgba(255, 179, 167, 1)",
+                tension: 0.4,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: "使用頻率",
+                },
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            responsive: true,
+            maintainAspectRatio: true,
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

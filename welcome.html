@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>正念連接 - 歡迎</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="welcome-container">
+      <div class="app-logo">
+        <i
+          class="fas fa-brain"
+          style="
+            font-size: 3.5em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+          "
+        ></i>
+      </div>
+      <h1 style="margin: 20px 0; color: var(--primary-color); font-size: 2.2em">
+        歡迎使用正念連接
+      </h1>
+      <p style="margin-bottom: 25px; font-size: 1.1em; line-height: 1.6">
+        重新掌握您的社群媒體體驗。我們的目標是幫助您更有意識地使用，而非更頻繁地滑動。
+      </p>
+
+      <div class="welcome-illustration" style="margin-bottom: 30px">
+        <img
+          src="images/welcome.jpg"
+          alt="歡迎插圖"
+          style="
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          "
+        />
+      </div>
+
+      <div class="card" style="margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
+        <h2>請問您希望如何使用社群媒體？</h2>
+        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">選擇您的主要目的，我們將協助過濾內容，讓您的體驗更專注。</p>
+        <div style="margin-top: 15px" id="intentRadioGroup">
+          <label class="radio-label">
+            <input type="radio" name="intent" value="learn" style="margin-right: 10px"/>
+            <span>📚 學習新知或技能</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="intent" value="connect" style="margin-right: 10px"/>
+            <span>👥 與親友聯繫</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="intent" value="relax" style="margin-right: 10px"/>
+            <span>🧘‍♀️ 休閒放鬆</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="intent" value="news" style="margin-right: 10px"/>
+            <span>📰 查看最新動態</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="intent" value="boredom" style="margin-right: 10px"/>
+            <span>⏱️ 只是打發時間</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 25px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
+        <h2>您現在的心情是？</h2>
+        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">了解您的情緒有助於我們提供更適合的內容建議。</p>
+        <div class="emoji-btn-group">
+          <button class="emoji-btn" data-mood="happy" aria-label="開心">😊</button>
+          <button class="emoji-btn" data-mood="neutral" aria-label="平静">😐</button>
+          <button class="emoji-btn" data-mood="stressed" aria-label="壓力">😟</button>
+          <button class="emoji-btn" data-mood="bored" aria-label="無聊">🥱</button>
+          <button class="emoji-btn" data-mood="tired" aria-label="疲倦">😴</button>
+        </div>
+      </div>      <button
+        id="continueBtn"
+        class="btn btn-primary"
+        style="width: 80%; max-width: 300px; margin-bottom: 10px;"
+        onclick="proceedToApp()"
+        disabled
+      >
+        開始您的正念旅程
+      </button>
+
+      <button
+        class="btn btn-secondary"
+        style="width: 80%; max-width: 300px"
+        onclick="window.location.href='sim_social_feed.html'"
+      >
+        觀看功能展示
+      </button>
+
+      <p style="margin-top: 20px; font-size: 0.9em; color: #777">
+        已經有帳戶了？
+        <a
+          href="dashboard.html"
+          style="color: var(--primary-color); font-weight: 500"
+          >直接前往儀表板</a
+        >
+      </p>
+    </div>
+
+    <script>
+      // 淡入效果
+      document.addEventListener("DOMContentLoaded", function () {
+        const container = document.querySelector(".welcome-container");
+        container.style.opacity = "0";
+        container.style.transform = "translateY(20px)";
+        setTimeout(() => {
+          container.style.transition = "opacity 0.8s ease, transform 0.6s ease";
+          container.style.opacity = "1";
+          container.style.transform = "translateY(0)";
+        }, 100);
+      });
+
+      const intentRadios = document.querySelectorAll('input[name="intent"]');
+      const intentLabels = document.querySelectorAll('#intentRadioGroup .radio-label');
+      const emojiButtons = document.querySelectorAll(".emoji-btn");
+      const suggestionDiv = document.getElementById("suggestion");
+      const suggestionTextSpan = document.getElementById("suggestionText");
+      const continueBtn = document.getElementById("continueBtn");
+
+      let selectedIntent = null;
+      let selectedMood = null;
+
+      function checkSelectionsAndProceedState() {
+        if (selectedIntent && selectedMood) {
+          continueBtn.disabled = false;
+          continueBtn.textContent = `開始您的正念旅程 (已設定偏好)`;
+
+          let message = "";
+          if (selectedMood === "stressed" && (selectedIntent === "boredom" || selectedIntent === "news")) {
+            message = `溫馨提醒：當您感到壓力時，漫無目的地滑社群媒體可能會加劇焦慮。我們將為您優先顯示與「${document.querySelector('input[name="intent"]:checked + span').textContent.trim()}」相關的正面內容，並在15分鐘後提醒您休息。`;
+          } else if (selectedMood === "bored" && selectedIntent === "boredom") {
+            message = `提示：感到無聊時，容易不自覺地花費過多時間。想為自己設定一個10分鐘的使用計時器嗎？我們將優先顯示輕鬆有趣的内容。`;
+          } else if (selectedMood === "tired") {
+            message = `您似乎有些疲倦了。記得開啟夜間模式或藍光過濾器，並考慮縮短使用時間，以免影響休息。我們將為您精選一些平靜、放鬆的內容。`;
+          } else if (selectedIntent === "learn") {
+            message = `學習模式已啟動！我們將為您優先顯示與「學習新知或技能」相關的教育性、啟發性內容，並在20分鐘後提醒您檢視學習成效。`;
+          } else if (selectedIntent === "connect") {
+             message = `保持聯繫很棒！我們將優先顯示來自您親友的動態，並減少其他干擾性內容。`
+          }
+
+          if (message) {
+            suggestionTextSpan.innerHTML = message;
+            suggestionDiv.style.display = "block";
+          } else {
+            suggestionDiv.style.display = "none";
+          }
+        } else {
+          continueBtn.disabled = true;
+          continueBtn.textContent = `請先選擇意圖和心情`;
+        }
+      }
+
+      intentRadios.forEach((radio) => {
+        radio.addEventListener("change", function () {
+          selectedIntent = this.value;
+          intentLabels.forEach(label => label.classList.remove('selected'));
+          if(this.checked) {
+            this.parentElement.classList.add('selected');
+          }
+          checkSelectionsAndProceedState();
+        });
+      });
+
+      emojiButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          emojiButtons.forEach((btn) => btn.classList.remove("selected"));
+          this.classList.add("selected");
+          selectedMood = this.dataset.mood;
+          checkSelectionsAndProceedState();
+        });
+      });
+      
+      function proceedToApp() {
+        // 儲存使用者偏好設定
+        localStorage.setItem('userIntent', selectedIntent);
+        localStorage.setItem('userMood', selectedMood);
+        
+        // 導向儀表板頁面
+        window.location.href = 'dashboard.html';
+      }
+    </script>
+  </body>
+</html>
+
+    <script>
+      // 简单的过渡效果
+      document.addEventListener("DOMContentLoaded", function () {
+        const container = document.querySelector(".welcome-container");
+        container.style.opacity = "0";
+        container.style.transform = "translateY(20px)";
+        setTimeout(() => {
+          container.style.transition = "opacity 0.8s ease, transform 0.6s ease";
+          container.style.opacity = "1";
+          container.style.transform = "translateY(0)";
+        }, 100);
+      });
+    </script>
+  </body>
+</html>

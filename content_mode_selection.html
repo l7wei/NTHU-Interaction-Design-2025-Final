@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>正念連接 - 選擇內容過濾模式</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="page-header">
+      <h1>選擇您的 <span id="appNameHeader">社群應用</span> 內容體驗</h1>
+    </header>
+
+    <main class="content-mode-container container">
+      <p
+        style="
+          text-align: center;
+          margin-bottom: 30px; /* Increased margin */
+          max-width: 650px; /* Increased max-width */
+          margin-left: auto;
+          margin-right: auto;
+          font-size: 1.05em; /* Adjusted font size */
+          line-height: 1.6;
+        "
+      >
+        「正念連接」幫助您管理現有社群媒體的內容。您可以選擇符合您當下意圖的過濾模式，減少無益資訊干擾，讓每一次使用都更有價值。
+        我們並非創建新的 Feed，而是優化您在 <strong id="appNameDesc">您的社群應用</strong> 上的體驗。
+      </p>
+
+      <div
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          gap: 25px; /* Increased gap */
+          justify-content: center;
+        "
+      >
+        <!-- 正念过滤模式 -->
+        <div
+          class="card"
+          style="
+            flex: 1;
+            min-width: 300px; /* Adjusted min-width */
+            max-width: 380px; /* Adjusted max-width */
+            position: relative;
+            border: 2px solid var(--primary-color);
+            display: flex; /* Added flex for better layout */
+            flex-direction: column; /* Stack content vertically */
+          "
+        >
+          <div
+            style="
+              position: absolute;
+              top: -12px; /* Adjusted position */
+              right: 15px; /* Adjusted position */
+              background-color: var(--accent-color);
+              color: white;
+              padding: 6px 12px; /* Adjusted padding */
+              border-radius: 20px;
+              font-size: 0.85em; /* Adjusted font size */
+              font-weight: 600; /* Increased font-weight */
+            "
+          >
+            推薦
+          </div>
+          <h2 style="color: var(--primary-color); margin-bottom: 15px; text-align:center;">
+            <i class="fas fa-filter" style="margin-right: 8px;"></i> 正念過濾模式
+          </h2>
+
+          <div style="margin-bottom: 20px; text-align:center;">
+            <i
+              class="fas fa-brain"
+              style="
+                font-size: 3em; /* Increased icon size */
+                color: var(--primary-color);
+                margin-bottom: 15px;
+              "
+            ></i>
+          </div>
+
+          <ul style="text-align: left; margin-bottom: 25px; padding-left: 25px; font-size: 0.95em; flex-grow: 1;">
+            <li><i class="fas fa-check-circle" style="color: var(--success-color); margin-right: 8px;"></i> <strong>專注於您的意圖：</strong> 優先顯示符合您設定目標 (如學習、放鬆) 的內容。</li>
+            <li><i class="fas fa-check-circle" style="color: var(--success-color); margin-right: 8px;"></i> <strong>減少干擾：</strong> 過濾潛在的負面、易致癮或與您意圖無關的內容。</li>
+            <li><i class="fas fa-check-circle" style="color: var(--success-color); margin-right: 8px;"></i> <strong>提升內容品質：</strong> 強調有益、啟發性或正面的資訊。</li>
+            <li><i class="fas fa-check-circle" style="color: var(--success-color); margin-right: 8px;"></i> <strong>有意識的選擇：</strong> 幫助您更有意識地消費內容，而非被動接收。</li>
+            <li><i class="fas fa-times-circle" style="color: var(--accent-color); margin-right: 8px;"></i> <strong>無獨立 Feed：</strong> 我們不創建新的資訊流，而是管理您現有 App 的內容。</li>
+          </ul>
+
+          <button
+            class="btn btn-primary"
+            style="width: 100%; margin-top: auto;"
+            onclick="applyFilterAndProceed('mindful')"
+          >
+            套用正念過濾
+          </button>
+        </div>
+
+        <!-- 标准Feed选项 (提醒用户这是未经过滤的) -->
+        <div
+          class="card"
+          style="flex: 1; min-width: 300px; max-width: 380px; opacity: 0.9; display: flex; flex-direction: column;"
+        >
+          <h2 style="margin-bottom: 15px; text-align:center;">
+            <i class="fas fa-stream" style="margin-right: 8px;"></i> 標準模式 (未過濾)
+          </h2>
+
+          <div style="margin-bottom: 20px; text-align:center;">
+            <i
+              class="fas fa-exclamation-triangle" /* Changed icon */
+              style="font-size: 3em; color: #E67E22; margin-bottom: 15px;" /* Warning color */
+            ></i>
+          </div>
+
+          <ul
+            style="
+              text-align: left;
+              margin-bottom: 25px;
+              padding-left: 25px;
+              color: #555;
+              font-size: 0.95em;
+              flex-grow: 1;
+            "
+          >
+            <li><i class="fas fa-info-circle" style="color: #777; margin-right: 8px;"></i> <strong>原始演算法：</strong> 您將看到社群應用程式的標準內容推薦。</li>
+            <li><i class="fas fa-info-circle" style="color: #777; margin-right: 8px;"></i> <strong>無內容過濾：</strong> 不會套用「正念連接」的任何內容管理或過濾。</li>
+            <li><i class="fas fa-info-circle" style="color: #777; margin-right: 8px;"></i> <strong>潛在無限滑動：</strong> 可能包含大量易致癮或低品質內容。</li>
+            <li><i class="fas fa-info-circle" style="color: #777; margin-right: 8px;"></i> <strong>謹慎使用：</strong> 若您希望減少無意識瀏覽，建議選擇「正念過濾模式」。</li>
+          </ul>
+
+          <button
+            class="btn btn-secondary"
+            style="width: 100%; margin-top: auto;"
+            onclick="applyFilterAndProceed('standard')"
+          >
+            繼續使用標準模式
+          </button>
+        </div>
+      </div>
+
+      <div style="margin-top: 35px; text-align: center">
+        <button
+          class="btn btn-tertiary"
+          onclick="window.location.href='dashboard.html'"
+        >
+          <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> 返回儀表板
+        </button>
+      </div>
+    </main>
+
+    <nav class="bottom-nav-bar">
+      <a href="dashboard.html" class="nav-item">
+        <i class="fas fa-home"></i>
+        <span>主頁</span>
+      </a>
+      <a href="reports.html" class="nav-item">
+        <i class="fas fa-chart-pie"></i>
+        <span>報告</span>
+      </a>
+      <a href="content_mode_selection.html" class="nav-item active">
+        <i class="fas fa-filter"></i>
+        <span>內容過濾</span>
+      </a>
+      <a href="sim_social_feed.html" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>功能展示</span>
+      </a>
+    </nav>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const appName = urlParams.get("app") || "您的社群應用"; // Default if no app specified
+      const userIntent = urlParams.get("intent") || "general"; // Default intent
+
+      document.getElementById("appNameHeader").textContent = appName;
+      document.getElementById("appNameDesc").textContent = appName;
+
+      function applyFilterAndProceed(mode) {
+        // For prototype purposes, we'll navigate to the simulated feed
+        // In a real application, this would trigger filtering mechanisms
+        // for the specified 'appName' based on 'mode' and 'userIntent'.
+        
+        // We are not creating a new feed, but simulating how the existing feed of 'appName' would look.
+        let filterApplied = mode === 'mindful';
+        // 修正：移除了樣板字串中不必要的反斜線
+        window.location.href = `sim_social_feed.html?app=${appName}&intent=${userIntent}&filter=${filterApplied}&mode=${mode}`;
+      }
+    </script>
+  </body>
+</html>
