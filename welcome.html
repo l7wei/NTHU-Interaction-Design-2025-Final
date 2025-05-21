@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>正念連接 - 歡迎</title>
+    <title>Unplug - 歡迎</title>
     <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
@@ -18,7 +18,7 @@
     <div class="welcome-container">
       <div class="app-logo">
         <i
-          class="fas fa-brain"
+          class="fas fa-plug"
           style="
             font-size: 3.5em;
             color: var(--primary-color);
@@ -27,7 +27,7 @@
         ></i>
       </div>
       <h1 style="margin: 20px 0; color: var(--primary-color); font-size: 2.2em">
-        歡迎使用正念連接
+        歡迎使用Unplug
       </h1>
       <p style="margin-bottom: 25px; font-size: 1.1em; line-height: 1.6">
         重新掌握您的社群媒體體驗。我們的目標是幫助您更有意識地使用，而非更頻繁地滑動。
@@ -89,7 +89,7 @@
         onclick="proceedToApp()"
         disabled
       >
-        開始您的正念旅程
+        開始您的 Unplug 旅程
       </button>
 
       <button
@@ -136,7 +136,7 @@
       function checkSelectionsAndProceedState() {
         if (selectedIntent && selectedMood) {
           continueBtn.disabled = false;
-          continueBtn.textContent = `開始您的正念旅程 (已設定偏好)`;
+          continueBtn.textContent = `開始您的 Unplug 旅程 (已設定偏好)`;
 
           let message = "";
           if (selectedMood === "stressed" && (selectedIntent === "boredom" || selectedIntent === "news")) {

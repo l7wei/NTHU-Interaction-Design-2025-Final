@@ -1,4 +1,4 @@
-/* 基礎樣式 - 正念連接 */
+/* 基礎樣式 - Unplug */
 
 /* 顏色變數 */
 :root {
@@ -10,7 +10,7 @@
   --muted-accent-color: #ffe8cc; /* 非常柔和的桃黃色 */
   --text-color: #3a3f44; /* 深灰藍 */
   --border-color: #e0e0e0; /* 淺灰色 - 邊框、分隔線 */
-  --button-text-color: #FFFFFF; /* 白色 - 實色按鈕上的文字 */
+  --button-text-color: #ffffff; /* 白色 - 實色按鈕上的文字 */
   --success-color: #82c9a0; /* 更精緻的綠色 */
   --success-bg: rgba(130, 201, 160, 0.15); /* 淺綠色背景 - 用於有益內容標記 */
   --warning-color: #e67e22; /* 警告色 - 提醒功能 */
@@ -29,7 +29,7 @@
 }
 
 body {
-  font-family: 'Lato', 'Noto Sans TC', 'Open Sans', 'Roboto', sans-serif; /* 添加 Noto Sans TC 作為繁體中文優先字體 */
+  font-family: "Lato", "Noto Sans TC", "Open Sans", "Roboto", sans-serif; /* 添加 Noto Sans TC 作為繁體中文優先字體 */
   background-color: var(--secondary-color);
   color: var(--text-color);
   line-height: 1.7; /* 增加行高以提高可讀性 */
@@ -82,7 +82,7 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #fcaE82; /* 调整悬停颜色 */
+  background-color: #fcae82; /* 调整悬停颜色 */
   transform: translateY(-2px); /* 添加轻微上移效果 */
   box-shadow: 0 4px 10px rgba(255, 185, 151, 0.4); /* 添加悬停阴影 */
 }
@@ -149,7 +149,7 @@ body {
 }
 
 .nav-item:hover {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 /* 模态框样式 */
@@ -205,7 +205,8 @@ body {
   justify-content: center;
 }
 
-.emoji-btn:hover, .emoji-btn.selected {
+.emoji-btn:hover,
+.emoji-btn.selected {
   border-color: var(--primary-color);
   background-color: #e8f8f7; /* 调整背景色 */
   transform: scale(1.1); /* 添加缩放效果 */
@@ -229,7 +230,8 @@ body {
   font-weight: 500;
 }
 
-.choice-chip:hover, .choice-chip.selected {
+.choice-chip:hover,
+.choice-chip.selected {
   border-color: var(--primary-color);
   background-color: #e8f8f7; /* 调整背景色 */
   color: var(--primary-color); /* 调整文字颜色 */
@@ -246,8 +248,8 @@ body {
 }
 
 .feed-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 .feed-item-img {
@@ -290,8 +292,8 @@ body {
 }
 
 .load-more-btn:hover {
-    background-color: #61b8b0; /* 调整悬停颜色 */
-    transform: translateY(-2px);
+  background-color: #61b8b0; /* 调整悬停颜色 */
+  transform: translateY(-2px);
 }
 
 /* Feed结束消息 */
@@ -345,7 +347,7 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); /* 调整阴影 */
 }
 
-/* 正念休息特定样式 */
+/* Unplug  休息特定样式 */
 .mindful-break-container {
   background-color: white;
   border-radius: 16px; /* 调整圆角 */
@@ -373,7 +375,7 @@ body {
   font-size: 0.85em;
   font-weight: 600;
   z-index: 10;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .tag-beneficial {
@@ -395,7 +397,7 @@ body {
 .content-overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(255,255,255,0.92);
+  background-color: rgba(255, 255, 255, 0.92);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -412,7 +414,7 @@ body {
   right: 15px;
   background-color: white;
   border-radius: 30px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   padding: 8px 12px;
   display: flex;
   align-items: center;
@@ -440,7 +442,7 @@ body {
   right: 15px;
   background-color: white;
   border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   padding: 15px;
   max-width: 300px;
   z-index: 50;
@@ -473,7 +475,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
   z-index: 40;
   border: none;
   cursor: pointer;
@@ -483,7 +485,7 @@ body {
 .reflection-btn:hover {
   background-color: var(--primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
 /* 動畫效果 */
@@ -582,7 +584,7 @@ body {
   width: 100%;
   overflow: hidden;
   margin: 0 20px;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
   transform: translateY(20px);
   animation: slideIn 0.3s ease-out forwards;
 }
@@ -666,12 +668,12 @@ body {
   .choice-chips {
     justify-content: center;
   }
-  
+
   .modal-container {
     max-width: 90%;
     padding: 25px 20px; /* 调整内边距 */
   }
-  
+
   .emoji-btn {
     width: 55px; /* 调整大小 */
     height: 55px; /* 调整大小 */
@@ -687,12 +689,12 @@ body {
     grid-template-columns: 1fr; /* 单列布局 */
     padding: 15px; /* 调整内边距 */
   }
-  
+
   .emoji-btn-group {
     flex-wrap: wrap;
     gap: 12px; /* 调整间距 */
   }
-  
+
   .emoji-btn {
     width: 50px; /* 调整大小 */
     height: 50px; /* 调整大小 */
@@ -711,7 +713,7 @@ body {
   .welcome-container {
     padding: 30px 20px; /* 调整欢迎页内边距 */
   }
-   .bottom-nav-bar {
+  .bottom-nav-bar {
     padding: 10px 0;
   }
   .nav-item i {
@@ -724,89 +726,93 @@ body {
 
 /* Radio button label styling for pre_social_intent.html */
 .radio-label {
-    display: block;
-    margin-bottom: 15px; /* 增加间距 */
-    cursor: pointer;
-    padding: 12px 15px; /* 增加内边距 */
-    border-radius: 8px; /* 增加圆角 */
-    border: 1px solid var(--border-color);
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+  display: block;
+  margin-bottom: 15px; /* 增加间距 */
+  cursor: pointer;
+  padding: 12px 15px; /* 增加内边距 */
+  border-radius: 8px; /* 增加圆角 */
+  border: 1px solid var(--border-color);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .radio-label:hover {
-    background-color: #f9f9f9;
+  background-color: #f9f9f9;
 }
 
 .radio-label input[type="radio"] {
-    margin-right: 12px; /* 增加与文字的间距 */
-    transform: scale(1.2); /* 稍微放大单选按钮 */
+  margin-right: 12px; /* 增加与文字的间距 */
+  transform: scale(1.2); /* 稍微放大单选按钮 */
 }
 
 .radio-label input[type="radio"]:checked + span {
-    font-weight: 600;
-    color: var(--primary-color);
+  font-weight: 600;
+  color: var(--primary-color);
 }
 
-.radio-label.selected { /* For JS to highlight */
-    background-color: #e8f8f7;
-    border-color: var(--primary-color);
+.radio-label.selected {
+  /* For JS to highlight */
+  background-color: #e8f8f7;
+  border-color: var(--primary-color);
 }
 
 /* Dashboard specific styles */
 .dashboard-content {
-    padding: 15px; /* Add padding for smaller screens */
+  padding: 15px; /* Add padding for smaller screens */
 }
 
 @media (min-width: 769px) {
-    .dashboard-content {
-        padding: 20px; /* Restore default padding for larger screens */
-    }
+  .dashboard-content {
+    padding: 20px; /* Restore default padding for larger screens */
+  }
 }
 
 /* Index page specific styles */
 .index-container {
-    padding: 40px; /* Increase padding */
+  padding: 40px; /* Increase padding */
 }
 
 .app-title h1 {
-    font-size: 2.8em; /* Increase title font size */
-    margin-bottom: 10px;
+  font-size: 2.8em; /* Increase title font size */
+  margin-bottom: 10px;
 }
 
 .app-title p {
-    font-size: 1.1em; /* Increase subtitle font size */
-    color: #555;
+  font-size: 1.1em; /* Increase subtitle font size */
+  color: #555;
 }
 
 .description p {
-    font-size: 1.05em; /* Increase description font size */
-    line-height: 1.7;
+  font-size: 1.05em; /* Increase description font size */
+  line-height: 1.7;
 }
 
 .page-list {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Adjust grid item size */
-    gap: 20px; /* Increase gap */
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(220px, 1fr)
+  ); /* Adjust grid item size */
+  gap: 20px; /* Increase gap */
 }
 
 .page-item {
-    padding: 20px; /* Increase padding */
+  padding: 20px; /* Increase padding */
 }
 
 .page-item i {
-    font-size: 2.2em; /* Increase icon size */
+  font-size: 2.2em; /* Increase icon size */
 }
 
 .page-item h3 {
-    font-size: 1.1em; /* Increase item title size */
-    margin-bottom: 8px;
+  font-size: 1.1em; /* Increase item title size */
+  margin-bottom: 8px;
 }
 .page-item p {
-    font-size: 0.9em; /* Adjust item description size */
+  font-size: 0.9em; /* Adjust item description size */
 }
 
 /* Content Mode Selection specific styles */
 .content-mode-container {
-    padding: 20px;
-    max-width: 800px; /* Increase max-width */
-    margin: 20px auto;
+  padding: 20px;
+  max-width: 800px; /* Increase max-width */
+  margin: 20px auto;
 }
