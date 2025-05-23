@@ -759,7 +759,7 @@ body {
 /* Radio button 分成兩欄 */
 
 .radio-label-div2 {
-  display: block;
+  display: grid;
   margin-bottom: 15px; /* 增加间距 */
   cursor: pointer;
   padding: 12px 15px; /* 增加内边距 */
