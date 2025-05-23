@@ -761,7 +761,6 @@ body {
 .radio-label-div2 {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px 15px; /* 垂直 15px，水平 30px 間距 */
   margin-bottom: 15px; /* 增加间距 */
   cursor: pointer;
   padding: 12px 15px; /* 增加内边距 */
@@ -798,7 +797,7 @@ body {
 .radio-2col-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px 15px;
+  gap: 15px;
 }
 
 /* Checkbox button label styling */
