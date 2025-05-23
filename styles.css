@@ -795,6 +795,11 @@ body {
   box-sizing: border-box;
 }
 
+.radio-2col-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 30px;
+}
 
 /* Checkbox button label styling */
 .checkbox-label {
