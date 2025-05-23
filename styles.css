@@ -759,22 +759,13 @@ body {
 /* Radio button 分成兩欄 */
 
 .radio-label-div2 {
-  display: grid;
+  display: block;
   margin-bottom: 15px; /* 增加间距 */
   cursor: pointer;
   padding: 12px 15px; /* 增加内边距 */
   border-radius: 8px; /* 增加圆角 */
   border: 1px solid var(--border-color);
   transition: background-color 0.2s ease, border-color 0.2s ease;
-  grid-template-columns: 1fr 1fr;
-}
-
-.radio-label-div2 label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px;
-  border-radius: 6px;
 }
 
 .radio-label-div2:hover {
