@@ -759,7 +759,9 @@ body {
 /* Radio button 分成兩欄 */
 
 .radio-label-div2 {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 30px; /* 垂直 15px，水平 30px 間距 */
   margin-bottom: 15px; /* 增加间距 */
   cursor: pointer;
   padding: 12px 15px; /* 增加内边距 */
@@ -787,6 +789,12 @@ body {
   background-color: #e8f8f7;
   border-color: var(--primary-color);
 }
+
+.radio-label-div2 {
+  width: calc(50% - 30px); /* 每欄佔一半，扣掉間距 */
+  box-sizing: border-box;
+}
+
 
 /* Checkbox button label styling */
 .checkbox-label {
