@@ -790,7 +790,7 @@ body {
 }
 
 .radio-label-div2 {
-  width: calc(50%); /* 每欄佔一半 */
+  width: calc(50% - 15/2px); /* 每欄佔一半，扣除邊距 */
   box-sizing: border-box;
 }
 
