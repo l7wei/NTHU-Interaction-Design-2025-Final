@@ -756,6 +756,38 @@ body {
 }
 
 /* edited by 李翊嘉 開始*/
+/* Radio button 分成兩欄 */
+
+.radio-label-div2 {
+  display: block;
+  margin-bottom: 15px; /* 增加间距 */
+  cursor: pointer;
+  padding: 12px 15px; /* 增加内边距 */
+  border-radius: 8px; /* 增加圆角 */
+  border: 1px solid var(--border-color);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.radio-label-div2:hover {
+  background-color: #f9f9f9;
+}
+
+.radio-label-div2 input[type="radio"] {
+  margin-right: 12px; /* 增加与文字的间距 */
+  transform: scale(1.2); /* 稍微放大单选按钮 */
+}
+
+.radio-label-div2 input[type="radio"]:checked + span {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.radio-label-div2.selected {
+  /* For JS to highlight */
+  background-color: #e8f8f7;
+  border-color: var(--primary-color);
+}
+
 /* Checkbox button label styling */
 .checkbox-label {
   display: block;
