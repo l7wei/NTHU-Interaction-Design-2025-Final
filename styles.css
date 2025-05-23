@@ -755,6 +755,39 @@ body {
   border-color: var(--primary-color);
 }
 
+/* edited by 李翊嘉 開始*/
+/* Checkbox button label styling */
+.checkbox-label {
+  display: block;
+  margin-bottom: 15px; /* 增加间距 */
+  cursor: pointer;
+  padding: 12px 15px; /* 增加内边距 */
+  border-radius: 8px; /* 增加圆角 */
+  border: 1px solid var(--border-color);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.checkbox-label:hover {
+  background-color: #f9f9f9;
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin-right: 12px; /* 增加与文字的间距 */
+  transform: scale(1.2); /* 稍微放大单选按钮 */
+}
+
+.checkbox-label input[type="checkbox"]:checked + span {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.checkbox-label.selected {
+  /* For JS to highlight */
+  background-color: #e8f8f7;
+  border-color: var(--primary-color);
+}
+/* edited by 李翊嘉 結束*/
+
 /* Dashboard specific styles */
 .dashboard-content {
   padding: 15px; /* Add padding for smaller screens */
