@@ -83,51 +83,35 @@
         </div>
       </div>
 
-      <!-- 社群媒體 -->
+      <!-- 過去一週螢幕使用時長 -->
       <div class="card" style="margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
-        <h2>你經常在使用的社群媒體APP？</h2>
-        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">如果想控制使用，我們會協助您做到的！</p>
-        <div style="margin-top: 15px" id="intentRadioGroup">
-          <label class="checkbox-label">
-            <input type="checkbox" name="usually-app" value="Instagram" style="margin-right: 10px"/>
-            <span>Instagram</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="usually-app" value="Facebook" style="margin-right: 10px"/>
-            <span>Facebook</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="usually-app" value="Thread" style="margin-right: 10px"/>
-            <span>Thread</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="usually-app" value="YouTube" style="margin-right: 10px"/>
-            <span>YouTube</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="usually-app" value="TikTok" style="margin-right: 10px"/>
-            <span>TikTok</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="usually-app" value="Dcard" style="margin-right: 10px"/>
-            <span>Dcard</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="usually-app" value="Twitter / X" style="margin-right: 10px"/>
-            <span>Twitter / X</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="usually-app" value="Discord" style="margin-right: 10px"/>
-            <span>Discord</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="usually-app" value="Reddit" style="margin-right: 10px"/>
-            <span>Reddit</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="usually-app" value="BeReal" style="margin-right: 10px"/>
-            <span>BeReal</span>
-          </label>
+        <h2>您過去一週螢幕使用總時長？</h2>
+        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">可以在系統設定中找到喔！</p>
+        <input 
+    type="range" 
+    id="screenRange" 
+    name="screen" 
+    min="0" 
+    max="50" 
+    step="5" 
+    list="ageTicks" 
+    oninput="document.getElementById('ageValue').textContent = this.value" 
+    style="width: 100%;"
+  />
+
+  <datalist id="ageTicks">
+    <option value="0"></option>
+    <option value="5"></option>
+    <option value="10"></option>
+    <option value="15"></option>
+    <option value="20"></option>
+    <option value="25"></option>
+    <option value="30"></option>
+    <option value="35"></option>
+    <option value="40"></option>
+    <option value="45"></option>
+    <option value="50"></option>
+  </datalist>
         </div>
       </div>
       <!-- 李翊嘉測試(結束) -->
