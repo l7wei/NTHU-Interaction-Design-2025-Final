@@ -46,7 +46,7 @@
       </div>
       
       <!-- 李翊嘉測試(開始) -->
-      <!-- 使用目標 -->
+      <!-- 使用者性別 -->
       <div class="card" style="margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
         <h2>請問您的性別？</h2>
         <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">我們會幫助您達成目標的！</p>
@@ -66,31 +66,20 @@
         </div>
       </div>
 
-      <!-- 使用動機 -->
+      <!-- 使用者年齡 -->
       <div class="card" style="margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
-        <h2>您的動機是？</h2>
-        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">多選題</p>
+        <h2>您的年齡？</h2>
+        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">請輸入您的實際年齡（單位：歲）</p>
         <div style="margin-top: 15px" id="intentRadioGroup">
-          <label class="checkbox-label">
-            <input type="checkbox" name="motivation" value="save_time" style="margin-right: 10px"/>
-            <span>⏳減少浪費時間</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="motivation" value="socialize" style="margin-right: 10px"/>
-            <span>👥增加社交空間</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="motivation" value="accomplish_tasks" style="margin-right: 10px"/>
-            <span>✅積極完成工作</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="motivation" value="better_sleep" style="margin-right: 10px"/>
-            <span>😴增進睡眠品質</span>
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" name="motivation" value="health_protection" style="margin-right: 10px"/>
-            <span>💪保護身體健康</span>
-          </label>
+          <input 
+    type="number" 
+    name="age" 
+    min="7" 
+    max="100" 
+    step="1" 
+    style="width: 120px; padding: 10px; border-radius: 6px; border: 1px solid #ccc;"
+    placeholder="輸入年齡"
+  />
         </div>
       </div>
 
