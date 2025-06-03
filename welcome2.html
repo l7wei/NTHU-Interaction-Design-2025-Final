@@ -174,8 +174,8 @@
     </div>
 
     
-<script>
-  // 淡入效果
+<!-- 頁面載入淡入效果 -->
+    <script>
       document.addEventListener("DOMContentLoaded", function () {
         const container = document.querySelector(".welcome-container");
         container.style.opacity = "0";
@@ -186,8 +186,10 @@
           container.style.transform = "translateY(0)";
         }, 100);
       });
-  
-  //所有問題都要回答才能按下一步
+    </script>
+    
+    <!-- 所有問題都要回答才能按下一步 -->
+    <script>
   document.addEventListener("DOMContentLoaded", function () {
     const continueBtn = document.getElementById("continueBtn");
 
@@ -221,7 +223,22 @@
     // 預設檢查一次
     checkAllFilled();
   });
-</script>
+    </script>
+    
+    <!-- 導向下一頁 -->
+    <script>
+      function proceedToApp() {
+        /*先省略
+        // 儲存使用者偏好設定
+        localStorage.setItem('userIntent', selectedIntent);
+        localStorage.setItem('userMood', selectedMood);
+        先省略*/
+        
+        // 導向儀表板頁面
+        window.location.href = 'dashboard.html';
+      }
+    </script>
+    
 
     <!--
     <script>
@@ -287,14 +304,7 @@
         });
       });
       
-      function proceedToApp() {
-        // 儲存使用者偏好設定
-        localStorage.setItem('userIntent', selectedIntent);
-        localStorage.setItem('userMood', selectedMood);
-        
-        // 導向儀表板頁面
-        window.location.href = 'dashboard.html';
-      }
+      
     </script>
 -->
 <!-- 螢幕使用時長Java-->
