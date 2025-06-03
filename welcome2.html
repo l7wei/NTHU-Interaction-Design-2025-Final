@@ -86,32 +86,27 @@
       <!-- 過去一週螢幕使用時長 -->
       <div class="card" style="margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
         <h2>您過去一週螢幕使用總時長？</h2>
-        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">可以在系統設定中找到喔！</p>
-        <input 
+        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">可以在系統設定中找到喔！單位：小時</p>
+         <input 
     type="range" 
     id="screenRange" 
     name="screen" 
     min="0" 
-    max="50" 
-    step="5" 
-    list="ageTicks" 
-    oninput="document.getElementById('ageValue').textContent = this.value" 
-    style="width: 100%;"
+    max="40" 
+    step="2"
+    value="20"
+    oninput="updateScreenTime(this.value)"
+    class="slider"
   />
+  <div id="screenValue" class="screen-output">每週 20 小時</div>
 
-  <datalist id="ageTicks">
-    <option value="0"></option>
-    <option value="5"></option>
-    <option value="10"></option>
-    <option value="15"></option>
-    <option value="20"></option>
-    <option value="25"></option>
-    <option value="30"></option>
-    <option value="35"></option>
-    <option value="40"></option>
-    <option value="45"></option>
-    <option value="50"></option>
-  </datalist>
+  <div class="slider-labels">
+    <span>0</span>
+    <span>10</span>
+    <span>20</span>
+    <span>30</span>
+    <span>40</span>
+  </div>
       </div>
       <!-- 李翊嘉測試(結束) -->
 
@@ -263,6 +258,13 @@
         window.location.href = 'dashboard.html';
       }
     </script>
+
+<!-- 螢幕使用時長Java-->
+    <script>
+      function updateScreenTime(val) {
+        document.getElementById("screenValue").textContent = `每週 ${val} 小時`;
+      }
+    </script>
   </body>
 </html>
 
@@ -279,5 +281,6 @@
         }, 100);
       });
     </script>
+
   </body>
 </html>
