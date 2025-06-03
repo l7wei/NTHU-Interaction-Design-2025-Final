@@ -144,48 +144,7 @@
       </div>
       <!-- ##########題目(結束)########## -->
 
-      <!--
-      <div class="card" style="margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
-        <h2>請問您希望如何使用社群媒體？</h2>
-        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">選擇您的主要目的，我們將協助過濾內容，讓您的體驗更專注。</p>
-        <div style="margin-top: 15px" id="intentRadioGroup">
-          <label class="radio-label">
-            <input type="radio" name="intent" value="learn" style="margin-right: 10px"/>
-            <span>📚 學習新知或技能</span>
-          </label>
-          <label class="radio-label">
-            <input type="radio" name="intent" value="connect" style="margin-right: 10px"/>
-            <span>👥 與親友聯繫</span>
-          </label>
-          <label class="radio-label">
-            <input type="radio" name="intent" value="relax" style="margin-right: 10px"/>
-            <span>🧘‍♀️ 休閒放鬆</span>
-          </label>
-          <label class="radio-label">
-            <input type="radio" name="intent" value="news" style="margin-right: 10px"/>
-            <span>📰 查看最新動態</span>
-          </label>
-          <label class="radio-label">
-            <input type="radio" name="intent" value="boredom" style="margin-right: 10px"/>
-            <span>⏱️ 只是打發時間</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="card" style="margin-bottom: 25px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
-        <h2>您現在的心情是？</h2>
-        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">了解您的情緒有助於我們提供更適合的內容建議。</p>
-        <div class="emoji-btn-group">
-          <button class="emoji-btn" data-mood="happy" aria-label="開心">😊</button>
-          <button class="emoji-btn" data-mood="neutral" aria-label="平静">😐</button>
-          <button class="emoji-btn" data-mood="stressed" aria-label="壓力">😟</button>
-          <button class="emoji-btn" data-mood="bored" aria-label="無聊">🥱</button>
-          <button class="emoji-btn" data-mood="tired" aria-label="疲倦">😴</button>
-        </div>
-      </div>      
-      -->
-
-      
+      <!-- 按鈕 -->
       <button
         id="continueBtn"
         class="btn btn-primary"
@@ -214,8 +173,9 @@
       </p>
     </div>
 
-    <script>
-      // 淡入效果
+    
+<script>
+  // 淡入效果
       document.addEventListener("DOMContentLoaded", function () {
         const container = document.querySelector(".welcome-container");
         container.style.opacity = "0";
@@ -226,6 +186,46 @@
           container.style.transform = "translateY(0)";
         }, 100);
       });
+  
+  //所有問題都要回答才能按下一步
+  document.addEventListener("DOMContentLoaded", function () {
+    const continueBtn = document.getElementById("continueBtn");
+
+    const genderRadios = document.querySelectorAll('input[name="gender"]');
+    const ageInput = document.querySelector('input[name="age"]');
+    const screenRange = document.querySelector('input[name="screen"]');
+    const reduceRadios = document.querySelectorAll('input[name="time_reduce"]');
+
+    function checkAllFilled() {
+      const genderChecked = Array.from(genderRadios).some(r => r.checked);
+      const ageFilled = ageInput.value && ageInput.value >= 7 && ageInput.value <= 100;
+      const screenFilled = screenRange.value !== '';
+      const reduceChecked = Array.from(reduceRadios).some(r => r.checked);
+
+      // ✅ 所有條件都符合才啟用按鈕
+      if (genderChecked && ageFilled && screenFilled && reduceChecked) {
+        continueBtn.disabled = false;
+        continueBtn.textContent = "下一步";
+      } else {
+        continueBtn.disabled = true;
+        continueBtn.textContent = "請完整填寫所有欄位";
+      }
+    }
+
+    // 綁定事件
+    genderRadios.forEach(r => r.addEventListener("change", checkAllFilled));
+    reduceRadios.forEach(r => r.addEventListener("change", checkAllFilled));
+    ageInput.addEventListener("input", checkAllFilled);
+    screenRange.addEventListener("input", checkAllFilled);
+
+    // 預設檢查一次
+    checkAllFilled();
+  });
+</script>
+
+    <!--
+    <script>
+      
 
       const intentRadios = document.querySelectorAll('input[name="intent"]');
       const intentLabels = document.querySelectorAll('#intentRadioGroup .radio-label');
@@ -296,29 +296,12 @@
         window.location.href = 'dashboard.html';
       }
     </script>
-
+-->
 <!-- 螢幕使用時長Java-->
     <script>
       function updateScreenTime(val) {
         document.getElementById("screenValue").textContent = `每週 ${val} 小時`;
       }
     </script>
-  </body>
-</html>
-
-    <script>
-      // 简单的过渡效果
-      document.addEventListener("DOMContentLoaded", function () {
-        const container = document.querySelector(".welcome-container");
-        container.style.opacity = "0";
-        container.style.transform = "translateY(20px)";
-        setTimeout(() => {
-          container.style.transition = "opacity 0.8s ease, transform 0.6s ease";
-          container.style.opacity = "1";
-          container.style.transform = "translateY(0)";
-        }, 100);
-      });
-    </script>
-
   </body>
 </html>
