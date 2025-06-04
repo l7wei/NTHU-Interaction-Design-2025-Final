@@ -273,6 +273,38 @@
         <p style="font-size: 0.9em; color: #666; margin-top: 30px;">🌀 資訊假象與時間黑洞</p>
         <p style="font-size: 0.75em; color: #666; margin-bottom: 15px;">⚠看似有知識含量，實則片面片段化</p>
         <div style="margin-top: 15px" id="intentRadioGroup">
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_topic" value="quick_facts_10s" />
+            <span>10 秒知識快閃</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_topic" value="ai_random_knowledge" />
+            <span>AI 生成的「冷知識」影片</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_topic" value="action_montage" />
+            <span>渲染式動作片段（剪輯但無劇情）</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_topic" value="ghost_story_clips" />
+            <span>鬼故事/靈異剪輯</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_topic" value="personality_quizzes" />
+            <span>測驗/心理測試類</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_topic" value="zodiac_snippets" />
+            <span>星座運勢片段</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_topic" value="love_advice" />
+            <span>戀愛建議短講</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_topic" value="unfinished_series" />
+            <span>講一半沒講完的系列影片</span>
+          </label>
         </div>
         
       </div>
@@ -286,7 +318,7 @@
         onclick="proceedToApp()"
         disabled
       >
-        下一步
+        開始您的Unplug旅程！
       </button>
 
       <button
@@ -322,7 +354,7 @@
       });
     </script>
     
-    <!-- 所有問題都要回答才能按下一步 -->
+    <!-- 所有問題都要回答才能按"開始您的Unplug旅程！" -->
     <script>
   document.addEventListener("DOMContentLoaded", function () {
     const continueBtn = document.getElementById("continueBtn");
@@ -341,7 +373,7 @@
       // ✅ 所有條件都符合才啟用按鈕
       if (genderChecked && ageFilled && screenFilled && reduceChecked) {
         continueBtn.disabled = false;
-        continueBtn.textContent = "下一步";
+        continueBtn.textContent = "開始您的Unplug旅程！";
       } else {
         continueBtn.disabled = true;
         continueBtn.textContent = "請完整填寫所有欄位";
