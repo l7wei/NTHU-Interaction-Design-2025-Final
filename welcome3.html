@@ -1,1 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unplug - 初始使用調查：第三部分 主題調查</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="welcome-container">
+      <div class="app-logo">
+        <i
+          class="fas fa-plug"
+          style="
+            font-size: 3.5em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+          "
+        ></i>
+      </div>
+      <h1 style="margin: 20px 0; color: var(--primary-color); font-size: 2.2em">
+        第三部分 主題調查
+      </h1>
+      <p style="margin-bottom: 25px; font-size: 1.1em; line-height: 1.6">
+        根據您提供的主題，可以讓我們給您更符合的管理模式！
+      </p>
 
+      <!-- 插圖 -->
+      <!--
+      <div class="welcome-illustration" style="margin-bottom: 30px">
+        <img
+          src="images/welcome.jpg"
+          alt="歡迎插圖"
+          style="
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          "
+        />
+      </div>
+      -->
+      
+      <!-- ##########題目(開始)########## -->
+      <!-- 使用者性別 -->
+      <div class="card" style="margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
+        <h2>請問您的性別？</h2>
+        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">我們會幫助您達成目標的！</p>
+        <div style="margin-top: 15px" id="intentRadioGroup">
+          <label class="radio-label">
+            <input type="radio" name="gender" value="male" style="margin-right: 10px"/>
+            <span>男性</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="gender" value="female" style="margin-right: 10px"/>
+            <span>女性</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="gender" value="prefer_not_to_say" style="margin-right: 10px"/>
+            <span>不願提供</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 使用者年齡 -->
+      <div class="card" style="margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
+        <h2>您的年齡？</h2>
+        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">請輸入您的實際年齡（單位：歲）</p>
+        <div style="margin-top: 15px" id="intentRadioGroup">
+          <input 
+    type="number" 
+    name="age" 
+    min="7" 
+    max="100" 
+    step="1" 
+    style="width: 120px; padding: 10px; border-radius: 6px; border: 1px solid #ccc;"
+    placeholder="輸入年齡"
+  />
+        </div>
+      </div>
+
+      <!-- 過去一週螢幕使用時長 -->
+      <div class="card" style="margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
+        <h2>您過去一週螢幕使用總時長？</h2>
+        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">可以在系統設定中找到喔！單位：小時</p>
+         <input 
+    type="range" 
+    id="screenRange" 
+    name="screen" 
+    min="0" 
+    max="50" 
+    step="1"
+    value="20"
+    oninput="updateScreenTime(this.value)"
+    class="slider"
+  />
+  
+
+  <div class="slider-labels">
+    <span> 0  </span>
+    <span> 10 </span>
+    <span> 20 </span>
+    <span> 30 </span>
+    <span> 40 </span>
+    <span> 50+</span>
+  </div>
+        <div id="screenValue" class="screen-output">每週 20 小時</div>
+      </div>
+      <!-- 過去一週螢幕使用時長(結束) -->
+
+      <!-- 減少時常偏好 -->
+      <div class="card" style="margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
+        <h2>您會希望改變現在的螢幕使用時間嗎？</h2>
+        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">我們會幫助您達成目標的！</p>
+        <div style="margin-top: 15px" id="intentRadioGroup">
+          <label class="radio-label">
+            <input type="radio" name="time_reduce" value="no_reduce" style="margin-right: 10px"/>
+            <span>不需要減少</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="time_reduce" value="20_reduce" style="margin-right: 10px"/>
+            <span>希望減少20%</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="time_reduce" value="50_reduce" style="margin-right: 10px"/>
+            <span>希望減少50%</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="time_reduce" value="80_reduce" style="margin-right: 10px"/>
+            <span>希望減少80%</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="time_reduce" value="no_idea_yet" style="margin-right: 10px"/>
+            <span>還沒有想法</span>
+          </label>
+        </div>
+      </div>
+      <!-- ##########題目(結束)########## -->
+
+      <!-- 按鈕 -->
+      <button
+        id="continueBtn"
+        class="btn btn-primary"
+        style="width: 80%; max-width: 300px; margin-bottom: 10px;"
+        onclick="proceedToApp()"
+        disabled
+      >
+        下一步
+      </button>
+
+      <button
+        class="btn btn-secondary"
+        style="width: 80%; max-width: 300px"
+        onclick="window.location.href='sim_social_feed.html'"
+      >
+        跳過，直接觀看功能展示
+      </button>
+
+      <p style="margin-top: 20px; font-size: 0.9em; color: #777">
+        已經有帳戶了？
+        <a
+          href="dashboard.html"
+          style="color: var(--primary-color); font-weight: 500"
+          >直接前往儀表板</a
+        >
+      </p>
+    </div>
+
+    
+<!-- 頁面載入淡入效果 -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const container = document.querySelector(".welcome-container");
+        container.style.opacity = "0";
+        container.style.transform = "translateY(20px)";
+        setTimeout(() => {
+          container.style.transition = "opacity 0.8s ease, transform 0.6s ease";
+          container.style.opacity = "1";
+          container.style.transform = "translateY(0)";
+        }, 100);
+      });
+    </script>
+    
+    <!-- 所有問題都要回答才能按下一步 -->
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const continueBtn = document.getElementById("continueBtn");
+
+    const genderRadios = document.querySelectorAll('input[name="gender"]');
+    const ageInput = document.querySelector('input[name="age"]');
+    const screenRange = document.querySelector('input[name="screen"]');
+    const reduceRadios = document.querySelectorAll('input[name="time_reduce"]');
+
+    function checkAllFilled() {
+      const genderChecked = Array.from(genderRadios).some(r => r.checked);
+      const ageFilled = ageInput.value && ageInput.value >= 7 && ageInput.value <= 100;
+      const screenFilled = screenRange.value !== '';
+      const reduceChecked = Array.from(reduceRadios).some(r => r.checked);
+
+      // ✅ 所有條件都符合才啟用按鈕
+      if (genderChecked && ageFilled && screenFilled && reduceChecked) {
+        continueBtn.disabled = false;
+        continueBtn.textContent = "下一步";
+      } else {
+        continueBtn.disabled = true;
+        continueBtn.textContent = "請完整填寫所有欄位";
+      }
+    }
+
+    // 綁定事件
+    genderRadios.forEach(r => r.addEventListener("change", checkAllFilled));
+    reduceRadios.forEach(r => r.addEventListener("change", checkAllFilled));
+    ageInput.addEventListener("input", checkAllFilled);
+    screenRange.addEventListener("input", checkAllFilled);
+
+    // 預設檢查一次
+    checkAllFilled();
+  });
+    </script>
+    
+    <!-- 導向下一頁 -->
+    <script>
+      function proceedToApp() {
+        /*先省略
+        // 儲存使用者偏好設定
+        localStorage.setItem('userIntent', selectedIntent);
+        localStorage.setItem('userMood', selectedMood);
+        先省略*/
+        
+        // 導向儀表板頁面
+        window.location.href = 'dashboard.html';
+      }
+    </script>
+    
+<!-- 螢幕使用時長Java-->
+    <script>
+      function updateScreenTime(val) {
+        document.getElementById("screenValue").textContent = `每週 ${val} 小時`;
+      }
+    </script>
+  </body>
+</html>
