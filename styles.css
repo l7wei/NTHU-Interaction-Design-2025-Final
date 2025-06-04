@@ -931,3 +931,32 @@ body {
   color: #444;
 }
 
+/* checkbox-free */
+.checkbox-free-label {
+  display: inline-block;
+  margin: 6px 8px;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  background-color: white;
+  transition: all 0.2s ease;
+  font-size: 15px;
+}
+
+.checkbox-free-label input[type="checkbox"],
+.checkbox-free-label input[type="radio"] {
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.checkbox-free-label:hover {
+  border-color: #888;
+  background-color: #f5f5f5;
+}
+
+.checkbox-free-label input:checked + span {
+  font-weight: bold;
+  color: #007bff;
+}
