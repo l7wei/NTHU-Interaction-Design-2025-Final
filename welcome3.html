@@ -189,78 +189,137 @@
         
       </div>
 
-      <!-- 使用者年齡 -->
+      <!-- 容易成癮的主題 -->
       <div class="card" style="margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
-        <h2>您的年齡？</h2>
-        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">請輸入您的實際年齡（單位：歲）</p>
+        <h2>以下哪些是你常常無意間瀏覽的主題？</h2>
+        <!-- 成癮主題1 -->
+        <p style="font-size: 0.9em; color: #666;">🎭娛樂與名人話題</p>
+        <p style="font-size: 0.75em; color: #666; margin-bottom: 15px;">⚠吸睛、八卦、話題性高但實質內容較少</p>
         <div style="margin-top: 15px" id="intentRadioGroup">
-          <input 
-    type="number" 
-    name="age" 
-    min="7" 
-    max="100" 
-    step="1" 
-    style="width: 120px; padding: 10px; border-radius: 6px; border: 1px solid #ccc;"
-    placeholder="輸入年齡"
-  />
-        </div>
-      </div>
-
-      <!-- 過去一週螢幕使用時長 -->
-      <div class="card" style="margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
-        <h2>您過去一週螢幕使用總時長？</h2>
-        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">可以在系統設定中找到喔！單位：小時</p>
-         <input 
-    type="range" 
-    id="screenRange" 
-    name="screen" 
-    min="0" 
-    max="50" 
-    step="1"
-    value="20"
-    oninput="updateScreenTime(this.value)"
-    class="slider"
-  />
-  
-
-  <div class="slider-labels">
-    <span> 0  </span>
-    <span> 10 </span>
-    <span> 20 </span>
-    <span> 30 </span>
-    <span> 40 </span>
-    <span> 50+</span>
-  </div>
-        <div id="screenValue" class="screen-output">每週 20 小時</div>
-      </div>
-      <!-- 過去一週螢幕使用時長(結束) -->
-
-      <!-- 減少時常偏好 -->
-      <div class="card" style="margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
-        <h2>您會希望改變現在的螢幕使用時間嗎？</h2>
-        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">我們會幫助您達成目標的！</p>
-        <div style="margin-top: 15px" id="intentRadioGroup">
-          <label class="radio-label">
-            <input type="radio" name="time_reduce" value="no_reduce" style="margin-right: 10px"/>
-            <span>不需要減少</span>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_themes" value="celebrity_trends" style="margin-right: 10px"/>
+            <span>明星動態</span>
           </label>
-          <label class="radio-label">
-            <input type="radio" name="time_reduce" value="20_reduce" style="margin-right: 10px"/>
-            <span>希望減少20%</span>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_themes" value="kol_info" style="margin-right: 10px"/>
+            <span>KOL資訊</span>
           </label>
-          <label class="radio-label">
-            <input type="radio" name="time_reduce" value="50_reduce" style="margin-right: 10px"/>
-            <span>希望減少50%</span>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_themes" value="reality_show_clips" style="margin-right: 10px"/>
+            <span>真人實境節目片段</span>
           </label>
-          <label class="radio-label">
-            <input type="radio" name="time_reduce" value="80_reduce" style="margin-right: 10px"/>
-            <span>希望減少80%</span>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_themes" value="influencer_vlogs" style="margin-right: 10px"/>
+            <span>網紅日常剪輯</span>
           </label>
-          <label class="radio-label">
-            <input type="radio" name="time_reduce" value="no_idea_yet" style="margin-right: 10px"/>
-            <span>還沒有想法</span>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_themes" value="meme_comedy_clips" style="margin-right: 10px"/>
+            <span>迷因搞笑短片</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_themes" value="couple_vlogs" style="margin-right: 10px"/>
+            <span>夫妻/情侶日常</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_themes" value="unboxing_wealth" style="margin-right: 10px"/>
+            <span>開箱炫富影片</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="addictive_themes" value="celebrity_gossip" style="margin-right: 10px"/>
+            <span>熱門娛樂八卦</span>
           </label>
         </div>
+
+        <!-- 感興趣主題2 --><!-- 第一行文字新增margin-top -->
+        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px; margin-top: 30px;">生活風格與心靈健康類</p>
+        <div style="margin-top: 15px" id="intentRadioGroup">
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="art" style="margin-right: 10px"/>
+            <span>藝術欣賞</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="philosophy" style="margin-right: 10px"/>
+            <span>哲學</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="music" style="margin-right: 10px"/>
+            <span>音樂創作</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="travel" style="margin-right: 10px"/>
+            <span>旅遊資訊</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="nature" style="margin-right: 10px"/>
+            <span>自然探索與戶外</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="mindfulness" style="margin-right: 10px"/>
+            <span>身心靈平衡與正念</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="positive_guidance" style="margin-right: 10px"/>
+            <span>正向內容引導</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="healthy_recipes" style="margin-right: 10px"/>
+            <span>健康食譜</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="food_info" style="margin-right: 10px"/>
+            <span>美食資訊</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="beauty" style="margin-right: 10px"/>
+            <span>美妝資訊</span>
+          </label>
+        </div>
+
+        <!-- 感興趣主題3 --><!-- 第一行文字新增margin-top -->
+        <p style="font-size: 0.9em; color: #666; margin-bottom: 15px; margin-top: 30px;">資訊與社群參與類</p>
+        <div style="margin-top: 15px" id="intentRadioGroup">
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="kol_info" style="margin-right: 10px"/>
+            <span>KOL資訊</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="grad_school" style="margin-right: 10px"/>
+            <span>研究所經驗分享</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="memes" style="margin-right: 10px"/>
+            <span>搞笑迷因</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="forums" style="margin-right: 10px"/>
+            <span>其他論壇討論（Dcard等）</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="celebrities" style="margin-right: 10px"/>
+            <span>明星動態</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="personal_finance" style="margin-right: 10px"/>
+            <span>個人理財投資</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="diy" style="margin-right: 10px"/>
+            <span>動手實作與 DIY</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="civic_engagement" style="margin-right: 10px"/>
+            <span>社會議題與公民參與</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="screen_time" style="margin-right: 10px"/>
+            <span>智慧螢幕時間</span>
+          </label>
+          <label class="checkbox-free-label">
+            <input type="checkbox" name="interest" value="focus_guardian" style="margin-right: 10px"/>
+            <span>專注力守門員</span>
+          </label>
+        </div>
+        
       </div>
       <!-- ##########題目(結束)########## -->
 
